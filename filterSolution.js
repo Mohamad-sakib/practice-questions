@@ -45,3 +45,12 @@ const isGreaterThen10 = isMoreThen(10);
 const filterNumbersGreaterThanTen = function (numbers) { 
   return numbers.filter(isGreaterThen10);
 };
+
+const arePagesMoreThen200 = isMoreThen(200);
+
+// books with more than 200 pages [{title: "Book 1", pages: 150}, {title: "Book 2", pages: 250}] => [{title: "Book 2", pages: 250}]
+const filterLongBooks = function (books) { 
+  return books.filter(function (book) {
+    return arePagesMoreThen200(book.pages);
+  });
+};
