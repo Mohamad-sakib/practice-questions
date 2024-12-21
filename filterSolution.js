@@ -1,4 +1,5 @@
 //helper Functions**************************************************************
+
 const isEven = function (number) { return number % 2 === 0 };
 
 const isMoreThen = function (val1) {
