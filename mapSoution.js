@@ -122,3 +122,18 @@ const joinedArraysOf = function (arrayOfArrays) {
 const repeatedStringsOf = function (strings) { 
   return strings.map(createDublicate);
 };
+
+const countVowelsOfWord = function (word) {
+  let vowelsCount = 0;
+
+  for (const char of word) {
+    vowelsCount = "aioeu".includes(char) ? vowelsCount + 1 : vowelsCount;
+  }
+
+  return vowelsCount;
+};
+
+// count vowels in ["apple", "banana", "grape"] => [2, 3, 2]
+const countVowelsOf = function (strings) { 
+  return strings.map(countVowelsOfWord);
+};
