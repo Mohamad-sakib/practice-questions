@@ -1,4 +1,5 @@
 // helperFunction---------------------------------------------------------------
+const print = console.log;
 
 const evaluateTruthiness = function (data) {
   if (data) {
@@ -141,4 +142,17 @@ const countVowelsOf = function (strings) {
 // reverse arrays of [[1, 2, 3], [4, 5, 6]] => [[3, 2, 1], [6, 5, 4]]
 const reversedArraysOf = function (arrays) { 
   return arrays.map(function (array) {return array.reverse();});
+};
+
+const isNotVowel = function (char) {
+  return !"aeiou".includes(char);
+}
+
+const removeVowels = function (string) {
+  return string.split("").filter(isNotVowel).join("");
+};
+
+// remove vowels from ["apple", "banana", "grape"] => ["ppl", "bnn", "grp"]
+const withoutVowelsOf = function (strings) { 
+  return strings.map(removeVowels);
 };
