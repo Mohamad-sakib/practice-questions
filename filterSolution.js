@@ -17,7 +17,9 @@ const arrayToObject = function (array, ...keys) {
   }
 
   return object
-}
+};
+
+const display = console.log;
 
 // problems++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -154,4 +156,4 @@ const filterRecentOrders = function (orders) {
   });
 };
 
-console.log(filterRecentOrders([{ orderDate: "2024-11-01" }, { orderDate: "2024-12-01" }]));
+display(filterRecentOrders([{ orderDate: "2024-11-01" }, { orderDate: "2024-12-01" }]));
