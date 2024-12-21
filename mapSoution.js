@@ -28,6 +28,10 @@ const splitStringToArray = function (sepertor) {
   return function (string) {return string.split(sepertor)};
 };
 
+const extractDomain = function (email) {
+  return email.slice(email.indexOf("@") + 1,email.length);
+}
+
 //problems+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // squares of [1, 2, 3] => [1, 4, 9]
@@ -93,10 +97,6 @@ const charCodesOf = function (strings) {
   return strings.map(collectCharUniCode);
 };
 
-const extractDomain = function (email) {
-  return email.slice(email.indexOf("@") + 1,email.length);
-}
-
 // extract domain names from ["user1@gmail.com", "admin@yahoo.com"] => ["gmail.com", "yahoo.com"]
 const domainNamesOf = function (emails) { 
   return emails.map(extractDomain);
@@ -107,4 +107,13 @@ const splitStringToArrayBySpace = splitStringToArray(" ");
 // split words in ["hello world", "goodbye moon"] => [["hello", "world"], ["goodbye", "moon"]]
 const splitWordsOf = function (strings) { 
   return strings.map(splitStringToArrayBySpace);
+};
+
+const joinArray = function (array) {
+  return array.join("");
+}
+
+// join arrays of [["a", "b"], ["c", "d"]] => ["ab", "cd"]
+const joinedArraysOf = function (arrayOfArrays) { 
+  return arrayOfArrays.map(joinArray);
 };
