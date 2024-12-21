@@ -88,3 +88,12 @@ const negatedBooleansOf = function (booleans) {
 const charCodesOf = function (strings) { 
   return strings.map(collectCharUniCode);
 };
+
+const extractDomain = function (email) {
+  return email.slice(email.indexOf("@") + 1,email.length);
+}
+
+// extract domain names from ["user1@gmail.com", "admin@yahoo.com"] => ["gmail.com", "yahoo.com"]
+const domainNamesOf = function (emails) { 
+  return emails.map(extractDomain);
+};
