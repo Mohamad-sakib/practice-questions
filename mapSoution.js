@@ -137,3 +137,8 @@ const countVowelsOfWord = function (word) {
 const countVowelsOf = function (strings) { 
   return strings.map(countVowelsOfWord);
 };
+
+// reverse arrays of [[1, 2, 3], [4, 5, 6]] => [[3, 2, 1], [6, 5, 4]]
+const reversedArraysOf = function (arrays) { 
+  return arrays.map(function (array) {return array.reverse();});
+};
