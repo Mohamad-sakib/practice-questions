@@ -7,7 +7,7 @@ const isMoreThen = function (val1) {
   }
 };
 
-const isActive = function (activityStatus) {return activityStatus};
+const checkStatusFor = function (activityStatus) {return activityStatus};
 
 // problems++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -35,7 +35,7 @@ const filterAdults = function (people) {
 // active users [{username: "alice", active: true}, {username: "bob", active: false}] => [{username: "alice", active: true}]
 const filterActiveUsers = function (users) { 
   return users.filter(function (user) {
-    return isActive(user.active);
+    return checkStatusFor(user.active);
   });
 };
 
@@ -52,5 +52,12 @@ const arePagesMoreThen200 = isMoreThen(200);
 const filterLongBooks = function (books) { 
   return books.filter(function (book) {
     return arePagesMoreThen200(book.pages);
+  });
+};
+
+// users with incomplete profiles [{username: "alice", profileComplete: true}, {username: "bob", profileComplete: false}] => [{username: "bob", profileComplete: false}]
+const filterIncompleteProfiles = function (users) { 
+  return users.filter(function (user) {
+    return checkStatusFor(user.profileComplete);
   });
 };
