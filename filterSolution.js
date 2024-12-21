@@ -5,6 +5,7 @@ const isMoreThen = function (val1) {
     return val2 > val1;
   }
 };
+const isActive = function (activityStatus) {return activityStatus};
 
 // problems++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -27,4 +28,11 @@ const isMoreThen30 = isMoreThen(30);
 // people older than 30 [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
 const filterAdults = function (people) {
   return people.filter(function (person) { return isMoreThen30(person.age); });
+};
+
+// active users [{username: "alice", active: true}, {username: "bob", active: false}] => [{username: "alice", active: true}]
+const filterActiveUsers = function (users) { 
+  return users.filter(function (user) {
+    return isActive(user.active);
+  });
 };
