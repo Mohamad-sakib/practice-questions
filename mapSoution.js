@@ -20,6 +20,10 @@ const invertBooleanValues = function (boolean) {
   return !boolean;
 }
 
+const collectCharUniCode = function (char) {
+  return char.charCodeAt(0);
+}
+
 //problems+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // squares of [1, 2, 3] => [1, 4, 9]
@@ -77,4 +81,10 @@ const doubleLettersOf = function (strings) {
 // boolean negation of [true, false, true] => [false, true, false]
 const negatedBooleansOf = function (booleans) { 
   return booleans.map(invertBooleanValues);
+};
+
+// character codes of ["a", "b", "c"] => [97, 98, 99]
+// Use the `charCodeAt` method on each string
+const charCodesOf = function (strings) { 
+  return strings.map(collectCharUniCode);
 };
