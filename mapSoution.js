@@ -181,4 +181,23 @@ const reversedWordsOf = function (strings) {
   });
 };
 
-print(reversedWordsOf(["hello world", "goodbye moon"]));
+const removeDublication = function (noDublication, charToAdd) {
+  if (!noDublication.includes(charToAdd)) {
+    noDublication.push(charToAdd);
+  }
+
+  return noDublication;
+}
+
+const extractUniqueChar = function (string) {
+  return string.split("").reduce(removeDublication,[]).join("");
+}
+
+// extract unique characters from ["apple", "banana", "grape"] => ["apl", "ban", "gra"]
+// Maintain the order of their first appearance in each string
+const uniqueCharactersOf = function (strings) {
+  return strings.map(extractUniqueChar);
+};
+
+
+print(uniqueCharactersOf(["apple", "banana", "grape"]));
