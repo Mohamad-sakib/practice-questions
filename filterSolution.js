@@ -9,6 +9,16 @@ const isMoreThen = function (val1) {
 
 const checkStatusFor = function (activityStatus) { return activityStatus };
 
+const arrayToObject = function (array, ...keys) {
+  const object = {};
+
+  for (let index = 0; index < keys.length; index++) {
+    object[keys[index]] = array[index];
+  }
+
+  return object
+}
+
 // problems++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // even numbers [1, 2, 3, 4, 5] => [2, 4]
@@ -72,8 +82,76 @@ const filterHighGrades = function (students) {
 };
 
 // products that are in stock [{product: "apple", inStock: true}, {product: "banana", inStock: false}] => [{product: "apple", inStock: true}]
-const filterInStockProducts = function (products) { 
+const filterInStockProducts = function (products) {
   return products.filter(function (product) {
     return checkStatusFor(product.inStock);
   });
 };
+
+const isYearDiffrenceLessThen = function (duration, currentYear, previousYear) {
+  if (duration === 1) {
+    return currentMonth - previousMonth === 0;
+  }
+
+  return currentYear - previousYear < duration;
+};
+
+const isMothDiffrenceLessThen = function (duration, currentMonth, previousMonth) {
+  if (duration === 1) {
+    return currentMonth - previousMonth === 0;
+  }
+  return currentMonth - previousMonth < duration;
+};
+
+const isLeapYear = function (year) {
+  if (year % 400 === 0) {
+    return true;
+  }
+
+  return year % 4 === 0 && year % 100 !== 0;
+}
+
+const daysInFeb = function (year) {
+  return isLeapYear(year) ? 29 : 28;
+}
+
+const totolDaysInMonth = function (month, year) {
+  const monthDays = [31, daysInFeb(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  return monthDays[month - 1];
+}
+
+const generateDateDiffrence = function (currentDate, previousDate) {
+  if (currentDate.month === +previousDate.month) {
+    return currentDate.date - (+previousDate.date);
+  }
+
+  return currentDate.date + (totolDaysInMonth(+previousDate.month, +previousDate.year) - (+previousDate.date));
+}
+
+const isDaysDiffrenceLessThen = function (duration, currentDate, previousDate) {
+  const dateDiffrence = generateDateDiffrence(currentDate, previousDate);
+
+  return dateDiffrence < duration;
+};
+
+const isDateUnder = function (duration, currentDate) {
+  return function (date, basedOn) {
+    switch (basedOn) {
+      case "Y": return isYearDiffrenceLessThen(duration, currentDate.year, +date.year);
+      case "M": return isMothDiffrenceLessThen(duration, currentDate.month, +date.month);
+      case "D": return isDaysDiffrenceLessThen(duration, currentDate, date);
+    }
+  }
+}
+
+const isPlacedInLast30Days = isDateUnder(30, { year: 2024, month: 12, date: 21 });
+
+// orders placed in the last 30 days [{orderDate: "2024-11-01"}, {orderDate: "2024-12-01"}] => [{orderDate: "2024-12-01"}]
+const filterRecentOrders = function (orders) {
+  return orders.filter(function (order) {
+    const orderDateInObject = arrayToObject(order.orderDate.split("-"), "year", "month", "date");
+    return isPlacedInLast30Days(orderDateInObject, "D");
+  });
+};
+
+console.log(filterRecentOrders([{ orderDate: "2024-11-01" }, { orderDate: "2024-12-01" }]));
