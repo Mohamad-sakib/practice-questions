@@ -117,3 +117,8 @@ const joinArray = function (array) {
 const joinedArraysOf = function (arrayOfArrays) { 
   return arrayOfArrays.map(joinArray);
 };
+
+// repeat strings in ["hi", "bye"] => ["hihi", "byebye"]
+const repeatedStringsOf = function (strings) { 
+  return strings.map(createDublicate);
+};
