@@ -1,10 +1,12 @@
 //helper Functions**************************************************************
 const isEven = function (number) { return number % 2 === 0 };
+
 const isMoreThen = function (val1) {
   return function (val2) {
     return val2 > val1;
   }
 };
+
 const isActive = function (activityStatus) {return activityStatus};
 
 // problems++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -35,4 +37,11 @@ const filterActiveUsers = function (users) {
   return users.filter(function (user) {
     return isActive(user.active);
   });
+};
+
+const isGreaterThen10 = isMoreThen(10);
+
+// numbers greater than 10 [5, 12, 7, 18, 3] => [12, 18]
+const filterNumbersGreaterThanTen = function (numbers) { 
+  return numbers.filter(isGreaterThen10);
 };
