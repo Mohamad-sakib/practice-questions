@@ -70,3 +70,10 @@ const filterHighGrades = function (students) {
     return isGradeMorethen80(student.grade);
   });
 };
+
+// products that are in stock [{product: "apple", inStock: true}, {product: "banana", inStock: false}] => [{product: "apple", inStock: true}]
+const filterInStockProducts = function (products) { 
+  return products.filter(function (product) {
+    return checkStatusFor(product.inStock);
+  });
+};
