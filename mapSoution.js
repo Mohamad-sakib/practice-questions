@@ -174,4 +174,11 @@ const cumulativeSumsOf = function (arrays) {
   return arrays.map(generateCumulativeSumArray);
 };
 
-print(cumulativeSumsOf([[1, 2, 3], [4, 5, 6]]));
+// reverse words in ["hello world", "goodbye moon"] => ["olleh dlrow", "eybdoog noom"]
+const reversedWordsOf = function (strings) { 
+  return strings.map(function (string) {
+    return reversedStringsOf(splitStringToArrayBySpace(string)).join(" ");
+  });
+};
+
+print(reversedWordsOf(["hello world", "goodbye moon"]));
