@@ -26,11 +26,11 @@ const collectCharUniCode = function (char) {
 }
 
 const splitStringToArray = function (sepertor) {
-  return function (string) {return string.split(sepertor)};
+  return function (string) { return string.split(sepertor) };
 };
 
 const extractDomain = function (email) {
-  return email.slice(email.indexOf("@") + 1,email.length);
+  return email.slice(email.indexOf("@") + 1, email.length);
 }
 
 //problems+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -79,7 +79,7 @@ const reversedStringsOf = function (strings) {
 };
 
 const doubleCharsOfString = function (string) {
-  return string.split("").reduce(function (accumolator, char) {return accumolator + createDublicate(char)},"" )
+  return string.split("").reduce(function (accumolator, char) { return accumolator + createDublicate(char) }, "")
 };
 
 // double letters of ["cat", "dog", "bat"] => ["ccaat", "ddoog", "bbaatt"]
@@ -88,25 +88,25 @@ const doubleLettersOf = function (strings) {
 };
 
 // boolean negation of [true, false, true] => [false, true, false]
-const negatedBooleansOf = function (booleans) { 
+const negatedBooleansOf = function (booleans) {
   return booleans.map(invertBooleanValues);
 };
 
 // character codes of ["a", "b", "c"] => [97, 98, 99]
 // Use the `charCodeAt` method on each string
-const charCodesOf = function (strings) { 
+const charCodesOf = function (strings) {
   return strings.map(collectCharUniCode);
 };
 
 // extract domain names from ["user1@gmail.com", "admin@yahoo.com"] => ["gmail.com", "yahoo.com"]
-const domainNamesOf = function (emails) { 
+const domainNamesOf = function (emails) {
   return emails.map(extractDomain);
 };
 
 const splitStringToArrayBySpace = splitStringToArray(" ");
 
 // split words in ["hello world", "goodbye moon"] => [["hello", "world"], ["goodbye", "moon"]]
-const splitWordsOf = function (strings) { 
+const splitWordsOf = function (strings) {
   return strings.map(splitStringToArrayBySpace);
 };
 
@@ -115,12 +115,12 @@ const joinArray = function (array) {
 }
 
 // join arrays of [["a", "b"], ["c", "d"]] => ["ab", "cd"]
-const joinedArraysOf = function (arrayOfArrays) { 
+const joinedArraysOf = function (arrayOfArrays) {
   return arrayOfArrays.map(joinArray);
 };
 
 // repeat strings in ["hi", "bye"] => ["hihi", "byebye"]
-const repeatedStringsOf = function (strings) { 
+const repeatedStringsOf = function (strings) {
   return strings.map(createDublicate);
 };
 
@@ -135,13 +135,13 @@ const countVowelsOfWord = function (word) {
 };
 
 // count vowels in ["apple", "banana", "grape"] => [2, 3, 2]
-const countVowelsOf = function (strings) { 
+const countVowelsOf = function (strings) {
   return strings.map(countVowelsOfWord);
 };
 
 // reverse arrays of [[1, 2, 3], [4, 5, 6]] => [[3, 2, 1], [6, 5, 4]]
-const reversedArraysOf = function (arrays) { 
-  return arrays.map(function (array) {return array.reverse();});
+const reversedArraysOf = function (arrays) {
+  return arrays.map(function (array) { return array.reverse(); });
 };
 
 const isNotVowel = function (char) {
@@ -153,6 +153,25 @@ const removeVowels = function (string) {
 };
 
 // remove vowels from ["apple", "banana", "grape"] => ["ppl", "bnn", "grp"]
-const withoutVowelsOf = function (strings) { 
+const withoutVowelsOf = function (strings) {
   return strings.map(removeVowels);
 };
+
+const cumulativeSumsReducer = function (cumulativeSumArray, number) {
+  cumulativeSumArray.push(cumulativeSumArray.at(-1) + number);
+  return cumulativeSumArray;
+}
+
+const generateCumulativeSumArray = function (array) {
+  const cumulativeSumArray = array.reduce(cumulativeSumsReducer, [0]);
+  cumulativeSumArray.shift();
+  return cumulativeSumArray;
+}
+
+// cumulative sums of [[1, 2, 3], [4, 5, 6]] => [[1, 3, 6], [4, 9, 15]]
+// Example: cumulative sum of [1, 2, 3] is [1, 1+2, 1+2+3]
+const cumulativeSumsOf = function (arrays) {
+  return arrays.map(generateCumulativeSumArray);
+};
+
+print(cumulativeSumsOf([[1, 2, 3], [4, 5, 6]]));
