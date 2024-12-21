@@ -1,4 +1,5 @@
-// helperFunction+++++++++++++++++++++++++++++
+// helperFunction---------------------------------------------------------------
+
 const evaluateTruthiness = function (data) {
   if (data) {
     return true;
@@ -14,7 +15,12 @@ const reverseString = function (string) {
 const createDublicate = function (string) {
   return string + string;
 }
-//problems+++++++++++++++++++++++++++++++++++++
+
+const invertBooleanValues = function (boolean) {
+  return !boolean;
+}
+
+//problems+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // squares of [1, 2, 3] => [1, 4, 9]
 const squaresOf = function (numbers) {
@@ -69,4 +75,6 @@ const doubleLettersOf = function (strings) {
 };
 
 // boolean negation of [true, false, true] => [false, true, false]
-const negatedBooleansOf = function (booleans) { };
+const negatedBooleansOf = function (booleans) { 
+  return booleans.map(invertBooleanValues);
+};
