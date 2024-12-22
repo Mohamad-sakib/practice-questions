@@ -262,4 +262,15 @@ const filterBirthdaysThisMonth = function (people) {
 };
 
 // display(filterStudentsWithAllSubjectsPassed([{ name: "John", subjects: [{ name: "Math", passed: true }, { name: "Science", passed: true }] }, { name: "Jane", subjects: [{ name: "Math", passed: false }, { name: "Science", passed: true }] }]));
-display(filterBirthdaysThisMonth([{name: "Alice", birthDate: "2024-12-01"}, {name: "Bob", birthDate: "2024-11-01"}]));
+// display(filterBirthdaysThisMonth([{name: "Alice", birthDate: "2024-12-01"}, {name: "Bob", birthDate: "2024-11-01"}]));
+
+// orders that exceed the average order value [{orderId: 1, amount: 20}, {orderId: 2, amount: 50}, {orderId: 3, amount: 10}] => [{orderId: 2, amount: 50}]
+const filterHighValueOrders = function (orders) { 
+  const averageOrderValue = averageOf("amount", orders);
+
+  return orders.filter(function (order) {
+    return order.amount > averageOrderValue;
+  });
+};
+
+display(filterHighValueOrders([{orderId: 1, amount: 20}, {orderId: 2, amount: 50}, {orderId: 3, amount: 10}]));
