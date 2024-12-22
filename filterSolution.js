@@ -22,6 +22,27 @@ const arrayToObject = function (array, ...keys) {
 
 const display = console.log;
 
+const addingObjPropertyValue = function (property) {
+  return function (sum, object) {
+    return sum + object[property];
+  }
+};
+
+const sumOf = function (property, array) {
+  return array.reduce(addingObjPropertyValue(property), 0);
+}
+
+const averageOf = function (property, array) {
+  const sumOfGivenProperty = sumOf(property, array);
+  return sumOfGivenProperty / array.length;
+};
+
+const isLowerThenAverage = function (propertyAverage, property) {
+  return function (product) {
+    return product[property] < propertyAverage;
+  }
+}
+
 // problems++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // even numbers [1, 2, 3, 4, 5] => [2, 4]
@@ -145,19 +166,24 @@ const generateDateDiffrence = function (currentDate, previousDate) {
 }
 
 const isDaysDiffrenceLessThen = function (duration, currentDate, previousDate) {
+  display("here");
   const monthDiffrence = currentDate.month - (+previousDate.month);
 
   if (monthDiffrence > 1 || monthDiffrence < 0) {
     return false;
   };
 
+  display("coming");
+
   const dateDiffrence = generateDateDiffrence(currentDate, previousDate);
+  display("dateDiffrence", dateDiffrence);
 
   return dateDiffrence < duration;
 };
 
 const isDateUnder = function (duration, currentDate) {
   return function (date, basedOn) {
+    console.log(date, basedOn);
     switch (basedOn) {
       case "Y": return isYearDiffrenceLessThen(duration, currentDate.year, +date.year);
       case "M": return isMothDiffrenceLessThen(duration, currentDate.month, +date.month);
@@ -179,28 +205,7 @@ const filterRecentOrders = function (orders) {
   return orders.filter(isOrderPlacedInLast30Days);
 };
 
-display(filterRecentOrders([{ orderDate: "2024-11-01" }, { orderDate: "2024-12-01" }]));
-
-const addingObjPropertyValue = function (property) {
-  return function (sum, object) {
-    return sum + object[property];
-  }
-};
-
-const sumOf = function (property, array) {
-  return array.reduce(addingObjPropertyValue(property), 0);
-}
-
-const averageOf = function (property, array) {
-  const sumOfGivenProperty = sumOf(property, array);
-  return sumOfGivenProperty / array.length;
-};
-
-const isLowerThenAverage = function (propertyAverage, property) {
-  return function (product) {
-    return product[property] < propertyAverage;
-  }
-}
+// display(filterRecentOrders([{ orderDate: "2024-11-01" }, { orderDate: "2024-12-01" }]));
 
 // products with a price lower than the average [{name: "item1", price: 10}, {name: "item2", price: 20}, {name: "item3", price: 5}] => [{name: "item1", price: 10}, {name: "item3", price: 5}]
 const filterBelowAveragePrice = function (products) {
@@ -209,3 +214,39 @@ const filterBelowAveragePrice = function (products) {
 
   return products.filter(isPriceLowerThenAverage);
 };
+
+// active users who posted in the last 7 days [{username: "alice", lastPostDate: "2024-12-01", active: true}, {username: "bob", lastPostDate: "2024-11-20", active: true}] => [{username: "alice", lastPostDate: "2024-12-01", active: true}]
+const isLastPostIn7Days = isDateUnder(7, { year: 2024, month: 12, date: 21 });
+
+const isLastPostInLast7Days = function (user) {
+  display(user);
+  const lastPostDateInObject = arrayToObject(user.lastPostDate.split("-"), "year", "month", "date");
+  display(lastPostDateInObject);
+
+  return isLastPostIn7Days(lastPostDateInObject, "D");
+};
+
+const filterRecentActiveUsers = function (users) {
+  return users.filter(isLastPostInLast7Days);
+};
+
+console.log(filterRecentActiveUsers([
+  { username: "alice", lastPostDate: "2024-12-01", active: true },
+  { username: "bob", lastPostDate: "2024-11-20", active: true },
+  { username: "bob", lastPostDate: "2024-12-20", active: true }
+]));
+
+const isStudentPassInAllSubject = function (student) {
+  return student.subjects.every(function (subject) {
+    return subject.passed;
+  });
+};
+
+// students who passed all subjects [{name: "John", subjects: [{name: "Math", passed: true}, {name: "Science", passed: true}]}, {name: "Jane", subjects: [{name: "Math", passed: false}, {name: "Science", passed: true}]}] => [{name: "John", subjects: [{name: "Math", passed: true}, {name: "Science", passed: true}]}]
+
+const filterStudentsWithAllSubjectsPassed = function (students) { 
+  display(students[0]);
+  return students.filter(isStudentPassInAllSubject);;
+};
+
+display(filterStudentsWithAllSubjectsPassed([{name: "John", subjects: [{name: "Math", passed: true}, {name: "Science", passed: true}]}, {name: "Jane", subjects: [{name: "Math", passed: false}, {name: "Science", passed: true}]}] ));
