@@ -33,10 +33,12 @@ const filterEvenNumbers = function (numbers) {
 
 const isLengthMoreThen5 = isMoreThen(5);
 
+const isLongerLengthThen5 = function (word) {
+  return isLengthMoreThen5(word.length);
+};
+
 const filterLongWords = function (words) {
-  return words.filter(function (word) {
-    return isLengthMoreThen5(word.length);
-  });
+  return words.filter(isLongerLengthThen5);
 };
 
 const isMoreThen30 = isMoreThen(30);
@@ -45,11 +47,13 @@ const filterAdults = function (people) {
   return people.filter(function (person) { return isMoreThen30(person.age); });
 };
 
+const isUserActive = function (user) {
+  return checkStatusFor(user.active);
+};
+
 // active users [{username: "alice", active: true}, {username: "bob", active: false}] => [{username: "alice", active: true}]
 const filterActiveUsers = function (users) {
-  return users.filter(function (user) {
-    return checkStatusFor(user.active);
-  });
+  return users.filter(isUserActive);
 };
 
 const isGreaterThen10 = isMoreThen(10);
@@ -61,34 +65,42 @@ const filterNumbersGreaterThanTen = function (numbers) {
 
 const arePagesMoreThen200 = isMoreThen(200);
 
+const hasBookPagesMoreThen200 = function (book) {
+  return arePagesMoreThen200(book.pages);
+};
+
 // books with more than 200 pages [{title: "Book 1", pages: 150}, {title: "Book 2", pages: 250}] => [{title: "Book 2", pages: 250}]
 const filterLongBooks = function (books) {
-  return books.filter(function (book) {
-    return arePagesMoreThen200(book.pages);
-  });
+  return books.filter(hasBookPagesMoreThen200);
 };
+
+const isUserProfileCompleted = function (user) {
+  return checkStatusFor(user.profileComplete);
+}
 
 // users with incomplete profiles [{username: "alice", profileComplete: true}, {username: "bob", profileComplete: false}] => [{username: "bob", profileComplete: false}]
 const filterIncompleteProfiles = function (users) {
-  return users.filter(function (user) {
-    return checkStatusFor(user.profileComplete);
-  });
+  return users.filter(isUserProfileCompleted);
 };
 
 // students with grades above 80 [{name: "John", grade: 75}, {name: "Jane", grade: 85}] => [{name: "Jane", grade: 85}]
 const isGradeMorethen80 = isMoreThen(80);
 
+const hasStudentGradeMoreThen80 = function (student) {
+  return isGradeMorethen80(student.grade);
+};
+
 const filterHighGrades = function (students) {
-  return students.filter(function (student) {
-    return isGradeMorethen80(student.grade);
-  });
+  return students.filter(hasStudentGradeMoreThen80);
 };
 
 // products that are in stock [{product: "apple", inStock: true}, {product: "banana", inStock: false}] => [{product: "apple", inStock: true}]
+const isProductInStock = function (product) {
+  return checkStatusFor(product.inStock);
+};
+
 const filterInStockProducts = function (products) {
-  return products.filter(function (product) {
-    return checkStatusFor(product.inStock);
-  });
+  return products.filter(isProductInStock);
 };
 
 const isYearDiffrenceLessThen = function (duration, currentYear, previousYear) {
@@ -103,6 +115,7 @@ const isMothDiffrenceLessThen = function (duration, currentMonth, previousMonth)
   if (duration === 1) {
     return currentMonth - previousMonth === 0;
   }
+
   return currentMonth - previousMonth < duration;
 };
 
@@ -132,6 +145,12 @@ const generateDateDiffrence = function (currentDate, previousDate) {
 }
 
 const isDaysDiffrenceLessThen = function (duration, currentDate, previousDate) {
+  const monthDiffrence = currentDate.month - (+previousDate.month); 
+  
+  if ( monthDiffrence > 1 || monthDiffrence < 0) {
+    return false;
+  };
+
   const dateDiffrence = generateDateDiffrence(currentDate, previousDate);
 
   return dateDiffrence < duration;
@@ -149,12 +168,15 @@ const isDateUnder = function (duration, currentDate) {
 
 const isPlacedInLast30Days = isDateUnder(30, { year: 2024, month: 12, date: 21 });
 
+const isOrderPlacedInLast30Days = function (order) {
+  const orderDateInObject = arrayToObject(order.orderDate.split("-"), "year", "month", "date");
+  
+  return isPlacedInLast30Days(orderDateInObject, "D");
+};
+
 // orders placed in the last 30 days [{orderDate: "2024-11-01"}, {orderDate: "2024-12-01"}] => [{orderDate: "2024-12-01"}]
 const filterRecentOrders = function (orders) {
-  return orders.filter(function (order) {
-    const orderDateInObject = arrayToObject(order.orderDate.split("-"), "year", "month", "date");
-    return isPlacedInLast30Days(orderDateInObject, "D");
-  });
+  return orders.filter(isOrderPlacedInLast30Days);
 };
 
 display(filterRecentOrders([{ orderDate: "2024-11-01" }, { orderDate: "2024-12-01" }]));
