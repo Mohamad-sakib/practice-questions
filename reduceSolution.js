@@ -53,7 +53,7 @@ const whichOneHasSmallerLength = function (smallestString, smallestStringCandida
 
 const concatenate = function (seprator) {
   return function (concatenatedString, wordToConcat) {
-    return concatenatedString.concat(seprator,wordToConcat);
+    return concatenatedString.concat(seprator, wordToConcat);
   };
 };
 
@@ -116,7 +116,7 @@ const findSumOfEvenSquares = function (numbers) {
   return sumOf(numbers.map(square).filter(isEven));
 };
 
-const pureConcat =concatenate("");
+const pureConcat = concatenate("");
 
 // concatenateWords(["hello", "world"]) => "helloworld"
 const concatenateWords = function (words) {
@@ -136,39 +136,60 @@ const shortestWord = function (words) {
 const concatWithComma = concatenate(",");
 
 // joinWithComma(["apple", "banana", "cherry"]) => "apple,banana,cherry"
-const joinWithComma = function (words) { 
+const joinWithComma = function (words) {
   return words.reduce(concatWithComma);
 };
 
 const concatWithSpace = concatenate(" ");
 
 // reverseWords(["hello", "world"]) => "world hello"
-const reverseWords = function (words) { 
+const reverseWords = function (words) {
   return words.reverse(words).reduce(concatWithSpace);;
 };
 
 // joinWordsWithSpace(["apple", "banana", "cherry"]) => "apple banana cherry"
-const joinWordsWithSpace = function (words) { 
+const joinWordsWithSpace = function (words) {
   return words.reduce(concatWithSpace);
 };
 
 // concatenateNames(["John", "Jane", "Doe"]) => "JohnJaneDoe"
-const concatenateNames = function (names) { 
+const concatenateNames = function (names) {
   return names.reduce(pureConcat);
-}
+};
 
 const isVowel = function (char) {
   return "aieou".includes(char);
-}
+};
 
 const collectVowels = function (word) {
   return word.split("").filter(isVowel).join("");
-}
+};
 
 // countVowelsInWords(["hello", "world"])--> [eo, o] => "eoo"
-const countVowelsInWords = function (words) { 
+const countVowelsInWords = function (words) {
   return concatenateWords(words.map(collectVowels));
-}
+};
+
+const getCamelCaseOf = function (word) {
+  if (word.length === 0) {
+    return "";
+  }
+
+  if (word.length === 1) {
+    return word.toUpperCase();
+  }
+  
+  return word.at(0).toUpperCase().concat(word.slice(1));
+};
+
+const convertToCamelCaseAndJoin = function (camelCaseString, word) {
+  return camelCaseString.concat(getCamelCaseOf(word));
+};
+
+// makeCamelCase(["hello", "world", "how", "are", "you"]) => "helloWorldHowAreYou"
+const makeCamelCase = function (words) {
+  return words.reduce(convertToCamelCaseAndJoin);
+};
 
 display(joinWithComma(["apple", "banana", "cherry"]));
 
