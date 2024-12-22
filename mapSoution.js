@@ -1,5 +1,5 @@
 // helperFunction---------------------------------------------------------------
-const print = console.log;
+const display = console.log;
 
 const evaluateTruthiness = function (data) {
   if (data) {
@@ -35,48 +35,54 @@ const extractDomain = function (email) {
 
 //problems+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+const square = function (number) {
+  return Math.pow(number, 2);
+};
+
 // squares of [1, 2, 3] => [1, 4, 9]
 const squaresOf = function (numbers) {
-  return numbers.map(function (number) {
-    return Math.pow(number, 2);
-  });
+  return numbers.map(square);
+};
+
+const getStringLength = function (string) {
+  return string.length;
 };
 
 // lengths of ["apple", "banana", "kiwi"] => [5, 6, 4]
 const lengthsOf = function (strings) {
-  return strings.map(function (string) {
-    return string.length;
-  });
+  return strings.map(getStringLength);
+};
+
+const convertToUpperCase = function (string) {
+  return string.toUpperCase();
 };
 
 // uppercase of ["hello", "world"] => ["HELLO", "WORLD"]
 const uppercaseOf = function (strings) {
-  return strings.map(function (string) {
-    return string.toUpperCase();
-  });
+  return strings.map(convertToUpperCase);
 };
+
+const extractFirstCharOf = function (string) {
+  return string.at(0);
+}
 
 // first characters of ["apple", "banana", "kiwi"] => ["a", "b", "k"]
 const firstCharactersOf = function (strings) {
-  return strings.map(function (string) {
-    return string.at(0);
-  });
+  return strings.map(extractFirstCharOf);
 };
 
 // truth values of [0, 1, 2, 3] => [false, true, true, true]
 // Assume non-zero numbers are true, and zero is false
 const truthValuesOf = function (numbers) {
-  return numbers.map(function (number) {
-    return evaluateTruthiness(number);
-  });
+  return numbers.map(evaluateTruthiness);
 };
 
 // reverse strings of ["hello", "world"] => ["olleh", "dlrow"]
 const reversedStringsOf = function (strings) {
-  return strings.map(function (string) {
-    return reverseString(string);
-  });
+  return strings.map(reverseString);
 };
+
+display(reversedStringsOf(["hello", "world"]));
 
 const doubleCharsOfString = function (string) {
   return string.split("").reduce(function (accumolator, char) { return accumolator + createDublicate(char) }, "")
@@ -174,11 +180,13 @@ const cumulativeSumsOf = function (arrays) {
   return arrays.map(generateCumulativeSumArray);
 };
 
+const reverseWords = function (string) {
+  return reversedStringsOf(splitStringToArrayBySpace(string)).join(" ");
+};
+
 // reverse words in ["hello world", "goodbye moon"] => ["olleh dlrow", "eybdoog noom"]
-const reversedWordsOf = function (strings) { 
-  return strings.map(function (string) {
-    return reversedStringsOf(splitStringToArrayBySpace(string)).join(" ");
-  });
+const reversedWordsOf = function (strings) {
+  return strings.map(reverseWords);
 };
 
 const removeDublication = function (noDublication, charToAdd) {
@@ -190,7 +198,7 @@ const removeDublication = function (noDublication, charToAdd) {
 }
 
 const extractUniqueChar = function (string) {
-  return string.split("").reduce(removeDublication,[]).join("");
+  return string.split("").reduce(removeDublication, []).join("");
 }
 
 // extract unique characters from ["apple", "banana", "grape"] => ["apl", "ban", "gra"]
@@ -200,4 +208,4 @@ const uniqueCharactersOf = function (strings) {
 };
 
 
-print(uniqueCharactersOf(["apple", "banana", "grape"]));
+// print(uniqueCharactersOf(["apple", "banana", "grape"]));
