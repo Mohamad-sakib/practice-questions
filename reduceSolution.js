@@ -20,6 +20,12 @@ const isPositive = function (number) {
   return number > 0;
 }
 
+const power = function (exponent) {
+  return function (base) {
+    return Math.pow(base, exponent);
+  }
+}
+
 // problems--------------------------------------------------------------
 
 // sumOf([1, 2, 3, 4]) => 10
@@ -55,4 +61,12 @@ const maxOf = function (numbers) {
 // sumPositiveNumbers([1, -2, 3, -4]) => 4
 const sumPositiveNumbers = function (numbers) {
   return sumOf(numbers.filter(isPositive));
-}
+};
+
+const square = power(2);
+
+// sumOfSquares([1, 2, 3, 4]) => 30
+const sumOfSquares = function (numbers) { 
+  return sumOf(numbers.map(square));
+};
+
