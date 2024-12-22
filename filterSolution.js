@@ -318,12 +318,22 @@ const medianOf = function (property, cities) {
 // cities with a population higher than the median [{name: "City A", population: 2000}, {name: "City B", population: 5000}, {name: "City C", population: 3000}] => [{name: "City B", population: 5000}]
 const filterCitiesAboveMedianPopulation = function (cities) {
   const medianOfCityPopulation = medianOf("population", cities);
+  
   return cities.filter(function (city) {
     return city.population > medianOfCityPopulation;
   });
 };
 
-console.log(filterCitiesAboveMedianPopulation([{ name: "City A", population: 2000 }, { name: "City B", population: 5000 }, { name: "City C", population: 3000 }]))
+// posts with more than the average number of likes [{postId: 1, likes: 100}, {postId: 2, likes: 200}, {postId: 3, likes: 150}] => [{postId: 2, likes: 200}]
+const filterPopularPosts = function (posts) {
+  const averageNumberOflikesOnPosts = averageOf("likes", posts);
+
+  return posts.filter((post) => {
+    return post.likes > averageNumberOflikesOnPosts;
+  });
+};
+
+// console.log(filterCitiesAboveMedianPopulation([{ name: "City A", population: 2000 }, { name: "City B", population: 5000 }, { name: "City C", population: 3000 }]))
 // display(filterTopRatedBooks([{ title: "Book 1", rating: 4 }, { title: "Book 2", rating: 5 }, { title: "Book 3", rating: 3 }]))
 // display(filterHighSalaryEmployees([{name: "Alice", salary: 5000, department: "HR"}, {name: "Bob", salary: 7000, department: "HR"}, {name: "Charlie", salary: 4000, department: "IT"}] ));
 // display(filterHighValueOrders([{ orderId: 1, amount: 20 }, { orderId: 2, amount: 50 }, { orderId: 3, amount: 10 }]));
