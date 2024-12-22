@@ -230,11 +230,11 @@ const filterRecentActiveUsers = function (users) {
   return users.filter(isLastPostInLast7Days);
 };
 
-console.log(filterRecentActiveUsers([
-  { username: "alice", lastPostDate: "2024-12-01", active: true },
-  { username: "bob", lastPostDate: "2024-11-20", active: true },
-  { username: "bob", lastPostDate: "2024-12-20", active: true }
-]));
+// console.log(filterRecentActiveUsers([
+//   { username: "alice", lastPostDate: "2024-12-01", active: true },
+//   { username: "bob", lastPostDate: "2024-11-20", active: true },
+//   { username: "bob", lastPostDate: "2024-12-20", active: true }
+// ]));
 
 const isStudentPassInAllSubject = function (student) {
   return student.subjects.every(function (subject) {
@@ -244,9 +244,22 @@ const isStudentPassInAllSubject = function (student) {
 
 // students who passed all subjects [{name: "John", subjects: [{name: "Math", passed: true}, {name: "Science", passed: true}]}, {name: "Jane", subjects: [{name: "Math", passed: false}, {name: "Science", passed: true}]}] => [{name: "John", subjects: [{name: "Math", passed: true}, {name: "Science", passed: true}]}]
 
-const filterStudentsWithAllSubjectsPassed = function (students) { 
-  display(students[0]);
+const filterStudentsWithAllSubjectsPassed = function (students) {
   return students.filter(isStudentPassInAllSubject);;
 };
 
-display(filterStudentsWithAllSubjectsPassed([{name: "John", subjects: [{name: "Math", passed: true}, {name: "Science", passed: true}]}, {name: "Jane", subjects: [{name: "Math", passed: false}, {name: "Science", passed: true}]}] ));
+const doesPersonHasThisMothBirthDay = function (person) {
+  const currentDate = { year: 2024, month: 12, date: 21 };
+  const personBirthDate = arrayToObject(person.birthDate.split("-"), "year", "month", "date");
+
+  return currentDate.month === +personBirthDate.month;
+};
+
+// people whose birthday is this month [{name: "Alice", birthDate: "2024-12-01"}, {name: "Bob", birthDate: "2024-11-01"}] => [{name: "Alice", birthDate: "2024-12-01"}]
+const filterBirthdaysThisMonth = function (people) {
+
+  return people.filter(doesPersonHasThisMothBirthDay);
+};
+
+// display(filterStudentsWithAllSubjectsPassed([{ name: "John", subjects: [{ name: "Math", passed: true }, { name: "Science", passed: true }] }, { name: "Jane", subjects: [{ name: "Math", passed: false }, { name: "Science", passed: true }] }]));
+display(filterBirthdaysThisMonth([{name: "Alice", birthDate: "2024-12-01"}, {name: "Bob", birthDate: "2024-11-01"}]));
