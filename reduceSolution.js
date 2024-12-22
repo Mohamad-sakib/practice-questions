@@ -111,5 +111,14 @@ const concatenateWords = function (words) {
   return words.reduce(concatenate, "");
 };
 
+const whichOneHasLongerLength = function (longestString, longestStringCandidate) {
+  return longestStringCandidate.length > longestString.length ? longestStringCandidate : longestString;
+};
+
+// longestWord(["apple", "banana", "cherry", "kiwi"]) => "banana"
+const longestWord = function (words) { 
+  return words.reduce(whichOneHasLongerLength, "");
+};
+
 display(sumOfOddNumbers([1, 2, 3, 4, 5]));
 
