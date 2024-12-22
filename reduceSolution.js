@@ -33,11 +33,15 @@ const power = function (exponent) {
 
 const isOdd = function (number) {
   return number % 2 !== 0;
+};
+
+const isEven = function (number) {
+  return number % 2 === 0;
 }
 
 const count = function (accumolator) {
   return accumolator + 1;
-}
+};
 
 // problems--------------------------------------------------------------
 
@@ -91,7 +95,12 @@ const sumOfOddNumbers = function (numbers) {
 // countNegativeNumbers([1, -2, 3, -4]) => 2
 const countNegativeNumbers = function (numbers) { 
   return numbers.filter(isNegative).reduce(count, 0);
-}
+};
+
+// findSumOfEvenSquares([1, 2, 3, 4]) => 20
+const findSumOfEvenSquares = function (numbers) { 
+  return sumOf(numbers.map(square).filter(isEven));
+};
 
 display(sumOfOddNumbers([1, 2, 3, 4, 5]));
 
