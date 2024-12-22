@@ -191,5 +191,19 @@ const makeCamelCase = function (words) {
   return words.reduce(convertToCamelCaseAndJoin);
 };
 
+const reverseWord = function (word) {
+  return word.split("").reverse().join("");
+}
+
+const reverseWordsAndJoin = function (reversedString, wordToReverse) {
+  return reversedString.concat(reverseWord(wordToReverse));
+};
+
+// reverseString(["apple", "banana", "cherry"]) => "elppaananabyrrehc"
+const reverseString = function (words) { 
+  return words.reduce(reverseWordsAndJoin, "");;
+};
+
+
 display(joinWithComma(["apple", "banana", "cherry"]));
 
