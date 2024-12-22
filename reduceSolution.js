@@ -43,6 +43,14 @@ const count = function (accumolator) {
   return accumolator + 1;
 };
 
+const whichOneHasLongerLength = function (longestString, longestStringCandidate) {
+  return longestStringCandidate.length > longestString.length ? longestStringCandidate : longestString;
+};
+
+const whichOneHasSmallerLength = function (smallestString, smallestStringCandidate) {
+  return smallestStringCandidate.length < smallestString.length ? smallestStringCandidate : smallestString;
+};
+
 // problems--------------------------------------------------------------
 
 // sumOf([1, 2, 3, 4]) => 10
@@ -111,14 +119,15 @@ const concatenateWords = function (words) {
   return words.reduce(concatenate, "");
 };
 
-const whichOneHasLongerLength = function (longestString, longestStringCandidate) {
-  return longestStringCandidate.length > longestString.length ? longestStringCandidate : longestString;
-};
-
 // longestWord(["apple", "banana", "cherry", "kiwi"]) => "banana"
-const longestWord = function (words) { 
+const longestWord = function (words) {
   return words.reduce(whichOneHasLongerLength, "");
 };
+
+// shortestWord(["apple", "banana", "cherry", "kiwi"]) => "kiwi"
+const shortestWord = function (words) {
+  return words.reduce(whichOneHasSmallerLength);
+}
 
 display(sumOfOddNumbers([1, 2, 3, 4, 5]));
 
