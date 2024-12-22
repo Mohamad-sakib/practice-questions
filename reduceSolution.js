@@ -178,7 +178,7 @@ const getCamelCaseOf = function (word) {
   if (word.length === 1) {
     return word.toUpperCase();
   }
-  
+
   return word.at(0).toUpperCase().concat(word.slice(1));
 };
 
@@ -200,7 +200,7 @@ const reverseWordsAndJoin = function (reversedString, wordToReverse) {
 };
 
 // reverseString(["apple", "banana", "cherry"]) => "elppaananabyrrehc"
-const reverseString = function (words) { 
+const reverseString = function (words) {
   return words.reduce(reverseWordsAndJoin, "");;
 };
 

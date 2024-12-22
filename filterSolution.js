@@ -145,9 +145,9 @@ const generateDateDiffrence = function (currentDate, previousDate) {
 }
 
 const isDaysDiffrenceLessThen = function (duration, currentDate, previousDate) {
-  const monthDiffrence = currentDate.month - (+previousDate.month); 
-  
-  if ( monthDiffrence > 1 || monthDiffrence < 0) {
+  const monthDiffrence = currentDate.month - (+previousDate.month);
+
+  if (monthDiffrence > 1 || monthDiffrence < 0) {
     return false;
   };
 
@@ -170,7 +170,7 @@ const isPlacedInLast30Days = isDateUnder(30, { year: 2024, month: 12, date: 21 }
 
 const isOrderPlacedInLast30Days = function (order) {
   const orderDateInObject = arrayToObject(order.orderDate.split("-"), "year", "month", "date");
-  
+
   return isPlacedInLast30Days(orderDateInObject, "D");
 };
 
@@ -180,3 +180,32 @@ const filterRecentOrders = function (orders) {
 };
 
 display(filterRecentOrders([{ orderDate: "2024-11-01" }, { orderDate: "2024-12-01" }]));
+
+const addingObjPropertyValue = function (property) {
+  return function (sum, object) {
+    return sum + object[property];
+  }
+};
+
+const sumOf = function (property, array) {
+  return array.reduce(addingObjPropertyValue(property), 0);
+}
+
+const averageOf = function (property, array) {
+  const sumOfGivenProperty = sumOf(property, array);
+  return sumOfGivenProperty / array.length;
+};
+
+const isLowerThenAverage = function (propertyAverage, property) {
+  return function (product) {
+    return product[property] < propertyAverage;
+  }
+}
+
+// products with a price lower than the average [{name: "item1", price: 10}, {name: "item2", price: 20}, {name: "item3", price: 5}] => [{name: "item1", price: 10}, {name: "item3", price: 5}]
+const filterBelowAveragePrice = function (products) {
+  const priceAverage = averageOf("price", products);
+  const isPriceLowerThenAverage = isLowerThenAverage(priceAverage, "price");
+
+  return products.filter(isPriceLowerThenAverage);
+};
