@@ -140,5 +140,12 @@ const joinWithComma = function (words) {
   return words.reduce(concatWithComma);
 };
 
+const concatWithSpace = concatenate(" ");
+
+// reverseWords(["hello", "world"]) => "world hello"
+const reverseWords = function (words) { 
+  return words.reverse(words).reduce(concatWithSpace);;
+}
+
 display(joinWithComma(["apple", "banana", "cherry"]));
 
