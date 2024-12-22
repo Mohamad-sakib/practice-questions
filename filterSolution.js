@@ -265,7 +265,7 @@ const filterBirthdaysThisMonth = function (people) {
 // display(filterBirthdaysThisMonth([{name: "Alice", birthDate: "2024-12-01"}, {name: "Bob", birthDate: "2024-11-01"}]));
 
 // orders that exceed the average order value [{orderId: 1, amount: 20}, {orderId: 2, amount: 50}, {orderId: 3, amount: 10}] => [{orderId: 2, amount: 50}]
-const filterHighValueOrders = function (orders) { 
+const filterHighValueOrders = function (orders) {
   const averageOrderValue = averageOf("amount", orders);
 
   return orders.filter(function (order) {
@@ -273,4 +273,15 @@ const filterHighValueOrders = function (orders) {
   });
 };
 
-display(filterHighValueOrders([{orderId: 1, amount: 20}, {orderId: 2, amount: 50}, {orderId: 3, amount: 10}]));
+// books with reviews higher than the average rating [{title: "Book 1", rating: 4}, {title: "Book 2", rating: 5}, {title: "Book 3", rating: 3}] => [{title: "Book 2", rating: 5}]
+const filterTopRatedBooks = function (books) {
+  const booksAverageRating = averageOf("rating", books);
+
+  return books.filter(function (book) {
+    return book.rating > booksAverageRating;
+  });
+};
+
+display(filterTopRatedBooks([{ title: "Book 1", rating: 4 }, { title: "Book 2", rating: 5 }, { title: "Book 3", rating: 3 }]))
+
+display(filterHighValueOrders([{ orderId: 1, amount: 20 }, { orderId: 2, amount: 50 }, { orderId: 3, amount: 10 }]));
