@@ -1,4 +1,5 @@
 // helperFunction--------------------------------------------------------------
+const display = console.log;
 
 const sumOfTwoNumber = function (num1, num2) {
   return num1 + num2;
@@ -18,12 +19,16 @@ const maxOfTwoNumber = function (num1, num2) {
 
 const isPositive = function (number) {
   return number > 0;
-}
+};
 
 const power = function (exponent) {
   return function (base) {
     return Math.pow(base, exponent);
   }
+};
+
+const isOdd = function (number) {
+  return number % 2 !== 0;
 }
 
 // problems--------------------------------------------------------------
@@ -69,4 +74,11 @@ const square = power(2);
 const sumOfSquares = function (numbers) { 
   return sumOf(numbers.map(square));
 };
+
+// sumOfOddNumbers([1, 2, 3, 4, 5]) => 9
+const sumOfOddNumbers = function (numbers) { 
+  return sumOf(numbers.filter(isOdd));
+};
+
+display(sumOfOddNumbers([1, 2, 3, 4, 5]));
 
