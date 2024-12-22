@@ -283,7 +283,7 @@ const filterTopRatedBooks = function (books) {
 };
 
 // employees whose salary is higher than the department average [{name: "Alice", salary: 5000, department: "HR"}, {name: "Bob", salary: 7000, department: "HR"}, {name: "Charlie", salary: 4000, department: "IT"}] => [{name: "Bob", salary: 7000, department: "HR"}]
-const filterHighSalaryEmployees = function (employees) { 
+const filterHighSalaryEmployees = function (employees) {
   const departmentAverageSalary = averageOf("salary", employees);
 
   return employees.filter((employee) => {
@@ -291,6 +291,39 @@ const filterHighSalaryEmployees = function (employees) {
   });
 };
 
+const findMedian = function (sortedArray) {
+  const middleTermIndex = Math.ceil(sortedArray.length / 2) - 1;
+
+  if (isEven(sortedArray.length)) {
+    return (sortedArray[middleTermIndex] + sortedArray[middleTermIndex + 1]) / 2;
+  }
+
+  return sortedArray[middleTermIndex];
+}
+
+const sortInAccedingOrder = function (array) {
+  return array.sort((num1, num2) => { return num1 - num2 });
+};
+
+const medianOf = function (property, cities) {
+  const citiesPopulationArray = cities.map(function (city) {
+    return city[property];
+  });
+
+  const sortedCitiesPopulation = sortInAccedingOrder(citiesPopulationArray);
+
+  return findMedian(sortedCitiesPopulation);
+}
+
+// cities with a population higher than the median [{name: "City A", population: 2000}, {name: "City B", population: 5000}, {name: "City C", population: 3000}] => [{name: "City B", population: 5000}]
+const filterCitiesAboveMedianPopulation = function (cities) {
+  const medianOfCityPopulation = medianOf("population", cities);
+  return cities.filter(function (city) {
+    return city.population > medianOfCityPopulation;
+  });
+};
+
+console.log(filterCitiesAboveMedianPopulation([{ name: "City A", population: 2000 }, { name: "City B", population: 5000 }, { name: "City C", population: 3000 }]))
 // display(filterTopRatedBooks([{ title: "Book 1", rating: 4 }, { title: "Book 2", rating: 5 }, { title: "Book 3", rating: 3 }]))
 // display(filterHighSalaryEmployees([{name: "Alice", salary: 5000, department: "HR"}, {name: "Bob", salary: 7000, department: "HR"}, {name: "Charlie", salary: 4000, department: "IT"}] ));
 // display(filterHighValueOrders([{ orderId: 1, amount: 20 }, { orderId: 2, amount: 50 }, { orderId: 3, amount: 10 }]));
