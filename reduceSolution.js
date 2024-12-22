@@ -83,23 +83,32 @@ const sumPositiveNumbers = function (numbers) {
 const square = power(2);
 
 // sumOfSquares([1, 2, 3, 4]) => 30
-const sumOfSquares = function (numbers) { 
+const sumOfSquares = function (numbers) {
   return sumOf(numbers.map(square));
 };
 
 // sumOfOddNumbers([1, 2, 3, 4, 5]) => 9
-const sumOfOddNumbers = function (numbers) { 
+const sumOfOddNumbers = function (numbers) {
   return sumOf(numbers.filter(isOdd));
 };
 
 // countNegativeNumbers([1, -2, 3, -4]) => 2
-const countNegativeNumbers = function (numbers) { 
+const countNegativeNumbers = function (numbers) {
   return numbers.filter(isNegative).reduce(count, 0);
 };
 
 // findSumOfEvenSquares([1, 2, 3, 4]) => 20
-const findSumOfEvenSquares = function (numbers) { 
+const findSumOfEvenSquares = function (numbers) {
   return sumOf(numbers.map(square).filter(isEven));
+};
+
+const concatenate = function (concatenatedString, wordToConcat) {
+  return concatenatedString.concat(wordToConcat);
+};
+
+// concatenateWords(["hello", "world"]) => "helloworld"
+const concatenateWords = function (words) {
+  return words.reduce(concatenate, "");
 };
 
 display(sumOfOddNumbers([1, 2, 3, 4, 5]));
