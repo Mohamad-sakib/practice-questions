@@ -21,6 +21,10 @@ const isPositive = function (number) {
   return number > 0;
 };
 
+const isNegative = function (number) {
+  return number < 0;
+};
+
 const power = function (exponent) {
   return function (base) {
     return Math.pow(base, exponent);
@@ -29,6 +33,10 @@ const power = function (exponent) {
 
 const isOdd = function (number) {
   return number % 2 !== 0;
+}
+
+const count = function (accumolator) {
+  return accumolator + 1;
 }
 
 // problems--------------------------------------------------------------
@@ -79,6 +87,11 @@ const sumOfSquares = function (numbers) {
 const sumOfOddNumbers = function (numbers) { 
   return sumOf(numbers.filter(isOdd));
 };
+
+// countNegativeNumbers([1, -2, 3, -4]) => 2
+const countNegativeNumbers = function (numbers) { 
+  return numbers.filter(isNegative).reduce(count, 0);
+}
 
 display(sumOfOddNumbers([1, 2, 3, 4, 5]));
 
