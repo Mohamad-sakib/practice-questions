@@ -157,6 +157,18 @@ const concatenateNames = function (names) {
   return names.reduce(pureConcat);
 }
 
+const isVowel = function (char) {
+  return "aieou".includes(char);
+}
+
+const collectVowels = function (word) {
+  return word.split("").filter(isVowel).join("");
+}
+
+// countVowelsInWords(["hello", "world"])--> [eo, o] => "eoo"
+const countVowelsInWords = function (words) { 
+  return concatenateWords(words.map(collectVowels));
+}
 
 display(joinWithComma(["apple", "banana", "cherry"]));
 
