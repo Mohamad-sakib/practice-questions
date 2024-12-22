@@ -51,6 +51,12 @@ const whichOneHasSmallerLength = function (smallestString, smallestStringCandida
   return smallestStringCandidate.length < smallestString.length ? smallestStringCandidate : smallestString;
 };
 
+const concatenate = function (seprator) {
+  return function (concatenatedString, wordToConcat) {
+    return concatenatedString.concat(seprator,wordToConcat);
+  };
+};
+
 // problems--------------------------------------------------------------
 
 // sumOf([1, 2, 3, 4]) => 10
@@ -110,13 +116,11 @@ const findSumOfEvenSquares = function (numbers) {
   return sumOf(numbers.map(square).filter(isEven));
 };
 
-const concatenate = function (concatenatedString, wordToConcat) {
-  return concatenatedString.concat(wordToConcat);
-};
+const pureConcat =concatenate("");
 
 // concatenateWords(["hello", "world"]) => "helloworld"
 const concatenateWords = function (words) {
-  return words.reduce(concatenate, "");
+  return words.reduce(pureConcat, "");
 };
 
 // longestWord(["apple", "banana", "cherry", "kiwi"]) => "banana"
@@ -129,5 +133,12 @@ const shortestWord = function (words) {
   return words.reduce(whichOneHasSmallerLength);
 }
 
-display(sumOfOddNumbers([1, 2, 3, 4, 5]));
+const concatWithComma = concatenate(",");
+
+// joinWithComma(["apple", "banana", "cherry"]) => "apple,banana,cherry"
+const joinWithComma = function (words) { 
+  return words.reduce(concatWithComma);
+};
+
+display(joinWithComma(["apple", "banana", "cherry"]));
 
