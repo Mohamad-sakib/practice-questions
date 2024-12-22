@@ -342,6 +342,14 @@ const filterActiveUsersByPostCount = function (users) {
   });
 };
 
+// filter people older than a certain age [{name: "Alice", age: 25}, {name: "Bob", age: 30}, {name: "Charlie", age: 22}] => [{name: "Bob", age: 30}]
+const filterByAge = function (people, ageCriteria) {
+  return people.filter(function (person) {
+    return person.age > ageCriteria;
+  });
+};
+
+console.log(filterByAge([{ name: "Alice", age: 25 }, { name: "Bob", age: 30 }, { name: "Charlie", age: 22 }], 25));
 
 
 // console.log(filterActiveUsersByPostCount([{ username: "Alice", postCount: 5 }, { username: "Bob", postCount: 8 }, { username: "Charlie", postCount: 3 }]));
