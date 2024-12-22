@@ -152,5 +152,11 @@ const joinWordsWithSpace = function (words) {
   return words.reduce(concatWithSpace);
 };
 
+// concatenateNames(["John", "Jane", "Doe"]) => "JohnJaneDoe"
+const concatenateNames = function (names) { 
+  return names.reduce(pureConcat);
+}
+
+
 display(joinWithComma(["apple", "banana", "cherry"]));
 
