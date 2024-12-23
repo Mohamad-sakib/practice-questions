@@ -80,16 +80,16 @@ const filterDiscountedItems = function (items, discount, maxPrice) {
   });
 };
 
-console.log(
-  filterDiscountedItems(
-    [
-      { name: "item1", price: 100 },
-      { name: "item2", price: 50 },
-    ],
-    10,
-    50
-  )
-);
+// console.log(
+//   filterDiscountedItems(
+//     [
+//       { name: "item1", price: 100 },
+//       { name: "item2", price: 50 },
+//     ],
+//     10,
+//     50
+//   )
+// );
 
 const convertNameToUpperCase = (product) => {
   return { name: product.name.toUpperCase() };
@@ -106,6 +106,38 @@ const filterLongProductNames = function (products, minLength) {
   const productsInUpperCase = products.map(convertNameToUpperCase);
   return productsInUpperCase.filter(isLengthMoreThen(minLength));
 };
+
+// Group users by their age, then filter for specific age groups [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
+const filterAgeGroups = function (users, ageGroup) {};
+
+// Convert grades to letter grades, then filter for students who passed [{name: "Alice", grade: 90}, {name: "Bob", grade: 55}] => [{name: "Alice", grade: 90}]
+const filterPassingGrades = function (students, passingGrade) {
+  return students.filter((student) => student.grade > passingGrade);
+};
+
+const applyVatOn = (price, vatRate) => {
+  return price + vatRate * price * 0.01;
+};
+
+// Calculate VAT-inclusive prices, then filter for those over a certain threshold [{name: "item1", price: 100}, {name: "item2", price: 50}] => [{name: "item1", price: 120}]
+const filterHighPriceWithVAT = function (products, vatRate, threshold) {
+  const productWithTaxIncluded = products.map((product) => {
+    return { name: product.name, price: applyVatOn(product.price, vatRate) };
+  });
+
+  return productWithTaxIncluded.filter((product) => product.price > threshold);
+};
+
+console.log(
+  filterHighPriceWithVAT(
+    [
+      { name: "item1", price: 100 },
+      { name: "item2", price: 50 },
+    ],
+    10,
+    100
+  )
+);
 
 // console.log(filterLongProductNames([{ name: "apple" }, { name: "banana" }], 5));
 
