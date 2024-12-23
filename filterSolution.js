@@ -349,7 +349,16 @@ const filterByAge = function (people, ageCriteria) {
   });
 };
 
-console.log(filterByAge([{ name: "Alice", age: 25 }, { name: "Bob", age: 30 }, { name: "Charlie", age: 22 }], 25));
+// filter products that are cheaper than a given price [{name: "item1", price: 20}, {name: "item2", price: 50}, {name: "item3", price: 10}] => [{name: "item1", price: 20}, {name: "item3", price: 10}]
+const filterByPrice = function (products, price) {
+  return products.filter(function (prouct) {
+    return prouct.price < price;
+  });
+};
+
+
+// console.log(filterByPrice([{name: "item1", price: 20}, {name: "item2", price: 50}, {name: "item3", price: 10}], 30));
+// console.log(filterByAge([{ name: "Alice", age: 25 }, { name: "Bob", age: 30 }, { name: "Charlie", age: 22 }], 25));
 
 
 // console.log(filterActiveUsersByPostCount([{ username: "Alice", postCount: 5 }, { username: "Bob", postCount: 8 }, { username: "Charlie", postCount: 3 }]));
