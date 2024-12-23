@@ -1,11 +1,13 @@
 //helper Functions**************************************************************
 
-const isEven = function (number) { return number % 2 === 0 };
+const isEven = function (number) {
+  return number % 2 === 0;
+};
 
 const isMoreThen = function (val1) {
   return function (val2) {
     return val2 > val1;
-  }
+  };
 };
 
 const checkStatusFor = function (activityStatus) {
@@ -19,7 +21,7 @@ const arrayToObject = function (array, ...keys) {
     object[keys[index]] = array[index];
   }
 
-  return object
+  return object;
 };
 
 const display = console.log;
@@ -27,12 +29,12 @@ const display = console.log;
 const addingObjPropertyValue = function (property) {
   return function (sum, object) {
     return sum + object[property];
-  }
+  };
 };
 
 const sumOf = function (property, array) {
   return array.reduce(addingObjPropertyValue(property), 0);
-}
+};
 
 const averageOf = function (property, array) {
   const sumOfGivenProperty = sumOf(property, array);
@@ -42,8 +44,8 @@ const averageOf = function (property, array) {
 const isLowerThenAverage = function (propertyAverage, property) {
   return function (product) {
     return product[property] < propertyAverage;
-  }
-}
+  };
+};
 
 // problems++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -67,7 +69,9 @@ const filterLongWords = function (words) {
 const isMoreThen30 = isMoreThen(30);
 // people older than 30 [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
 const filterAdults = function (people) {
-  return people.filter(function (person) { return isMoreThen30(person.age); });
+  return people.filter(function (person) {
+    return isMoreThen30(person.age);
+  });
 };
 
 const isUserActive = function (user) {
@@ -99,7 +103,7 @@ const filterLongBooks = function (books) {
 
 const isUserProfileCompleted = function (user) {
   return checkStatusFor(user.profileComplete);
-}
+};
 
 // users with incomplete profiles [{username: "alice", profileComplete: true}, {username: "bob", profileComplete: false}] => [{username: "bob", profileComplete: false}]
 const filterIncompleteProfiles = function (users) {
@@ -134,7 +138,11 @@ const isYearDiffrenceLessThen = function (duration, currentYear, previousYear) {
   return currentYear - previousYear < duration;
 };
 
-const isMothDiffrenceLessThen = function (duration, currentMonth, previousMonth) {
+const isMothDiffrenceLessThen = function (
+  duration,
+  currentMonth,
+  previousMonth
+) {
   if (duration === 1) {
     return currentMonth - previousMonth === 0;
   }
@@ -148,32 +156,49 @@ const isLeapYear = function (year) {
   }
 
   return year % 4 === 0 && year % 100 !== 0;
-}
+};
 
 const daysInFeb = function (year) {
   return isLeapYear(year) ? 29 : 28;
-}
+};
 
 const totolDaysInMonth = function (month, year) {
-  const monthDays = [31, daysInFeb(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const monthDays = [
+    31,
+    daysInFeb(year),
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31,
+  ];
   return monthDays[month - 1];
-}
+};
 
 const generateDateDiffrence = function (currentDate, previousDate) {
   if (currentDate.month === +previousDate.month) {
-    return currentDate.date - (+previousDate.date);
+    return currentDate.date - +previousDate.date;
   }
 
-  return currentDate.date + (totolDaysInMonth(+previousDate.month, +previousDate.year) - (+previousDate.date));
-}
+  return (
+    currentDate.date +
+    (totolDaysInMonth(+previousDate.month, +previousDate.year) -
+      +previousDate.date)
+  );
+};
 
 const isDaysDiffrenceLessThen = function (duration, currentDate, previousDate) {
   display("here");
-  const monthDiffrence = currentDate.month - (+previousDate.month);
+  const monthDiffrence = currentDate.month - +previousDate.month;
 
   if (monthDiffrence > 1 || monthDiffrence < 0) {
     return false;
-  };
+  }
 
   display("coming");
 
@@ -187,17 +212,33 @@ const isDateUnder = function (duration, currentDate) {
   return function (date, basedOn) {
     console.log(date, basedOn);
     switch (basedOn) {
-      case "Y": return isYearDiffrenceLessThen(duration, currentDate.year, +date.year);
-      case "M": return isMothDiffrenceLessThen(duration, currentDate.month, +date.month);
-      case "D": return isDaysDiffrenceLessThen(duration, currentDate, date);
+      case "Y":
+        return isYearDiffrenceLessThen(duration, currentDate.year, +date.year);
+      case "M":
+        return isMothDiffrenceLessThen(
+          duration,
+          currentDate.month,
+          +date.month
+        );
+      case "D":
+        return isDaysDiffrenceLessThen(duration, currentDate, date);
     }
-  }
-}
+  };
+};
 
-const isPlacedInLast30Days = isDateUnder(30, { year: 2024, month: 12, date: 21 });
+const isPlacedInLast30Days = isDateUnder(30, {
+  year: 2024,
+  month: 12,
+  date: 21,
+});
 
 const isOrderPlacedInLast30Days = function (order) {
-  const orderDateInObject = arrayToObject(order.orderDate.split("-"), "year", "month", "date");
+  const orderDateInObject = arrayToObject(
+    order.orderDate.split("-"),
+    "year",
+    "month",
+    "date"
+  );
 
   return isPlacedInLast30Days(orderDateInObject, "D");
 };
@@ -222,7 +263,12 @@ const isLastPostIn7Days = isDateUnder(7, { year: 2024, month: 12, date: 21 });
 
 const isLastPostInLast7Days = function (user) {
   display(user);
-  const lastPostDateInObject = arrayToObject(user.lastPostDate.split("-"), "year", "month", "date");
+  const lastPostDateInObject = arrayToObject(
+    user.lastPostDate.split("-"),
+    "year",
+    "month",
+    "date"
+  );
   display(lastPostDateInObject);
 
   return isLastPostIn7Days(lastPostDateInObject, "D");
@@ -247,19 +293,23 @@ const isStudentPassInAllSubject = function (student) {
 // students who passed all subjects [{name: "John", subjects: [{name: "Math", passed: true}, {name: "Science", passed: true}]}, {name: "Jane", subjects: [{name: "Math", passed: false}, {name: "Science", passed: true}]}] => [{name: "John", subjects: [{name: "Math", passed: true}, {name: "Science", passed: true}]}]
 
 const filterStudentsWithAllSubjectsPassed = function (students) {
-  return students.filter(isStudentPassInAllSubject);;
+  return students.filter(isStudentPassInAllSubject);
 };
 
 const doesPersonHasThisMothBirthDay = function (person) {
   const currentDate = { year: 2024, month: 12, date: 21 };
-  const personBirthDate = arrayToObject(person.birthDate.split("-"), "year", "month", "date");
+  const personBirthDate = arrayToObject(
+    person.birthDate.split("-"),
+    "year",
+    "month",
+    "date"
+  );
 
   return currentDate.month === +personBirthDate.month;
 };
 
 // people whose birthday is this month [{name: "Alice", birthDate: "2024-12-01"}, {name: "Bob", birthDate: "2024-11-01"}] => [{name: "Alice", birthDate: "2024-12-01"}]
 const filterBirthdaysThisMonth = function (people) {
-
   return people.filter(doesPersonHasThisMothBirthDay);
 };
 
@@ -297,14 +347,18 @@ const findMedian = function (sortedArray) {
   const middleTermIndex = Math.ceil(sortedArray.length / 2) - 1;
 
   if (isEven(sortedArray.length)) {
-    return (sortedArray[middleTermIndex] + sortedArray[middleTermIndex + 1]) / 2;
+    return (
+      (sortedArray[middleTermIndex] + sortedArray[middleTermIndex + 1]) / 2
+    );
   }
 
   return sortedArray[middleTermIndex];
-}
+};
 
 const sortInAccedingOrder = function (array) {
-  return array.sort((num1, num2) => { return num1 - num2 });
+  return array.sort((num1, num2) => {
+    return num1 - num2;
+  });
 };
 
 const medianOf = function (property, cities) {
@@ -315,7 +369,7 @@ const medianOf = function (property, cities) {
   const sortedCitiesPopulation = sortInAccedingOrder(citiesPopulationArray);
 
   return findMedian(sortedCitiesPopulation);
-}
+};
 
 // cities with a population higher than the median [{name: "City A", population: 2000}, {name: "City B", population: 5000}, {name: "City C", population: 3000}] => [{name: "City B", population: 5000}]
 const filterCitiesAboveMedianPopulation = function (cities) {
@@ -362,11 +416,15 @@ const filterByPrice = function (products, price) {
 const filterByMathGrade = function (students, grade) {
   return students.filter(function (student) {
     return student.grades.math > grade;
-  })
+  });
 };
 
 const validateDateComeBeforeAnother = (date1, date2) => {
-  return !(+date1.year > +date2.year || +date1.month > +date2.month || +date1.date > +date2.date);
+  return !(
+    +date1.year > +date2.year ||
+    +date1.month > +date2.month ||
+    +date1.date > +date2.date
+  );
 };
 
 const doesDateComeBefore = function (date1, date2) {
@@ -379,7 +437,7 @@ const doesDateComeBefore = function (date1, date2) {
 const isEventHappendBefore = function (date) {
   return function (event) {
     return doesDateComeBefore(event.date, date);
-  }
+  };
 };
 
 // filter events that occur before a certain date [{name: "Event1", date: "2024-12-01"}, {name: "Event2", date: "2024-11-15"}] => [{name: "Event2", date: "2024-11-15"}]
@@ -390,15 +448,14 @@ const filterByDate = function (events, date) {
 };
 
 // filter employees who earn more than a certain salary [{name: "Alice", salary: 5000}, {name: "Bob", salary: 7000}] => [{name: "Bob", salary: 7000}]
-const filterBySalary = function (employees, salary) { 
+const filterBySalary = function (employees, salary) {
   return employees.filter((employee) => employee.salary > salary);
 };
 
 // filter orders with a quantity greater than a given number [{orderId: 1, quantity: 10}, {orderId: 2, quantity: 5}] => [{orderId: 1, quantity: 10}]
-const filterByQuantity = function (orders, quantity) { 
+const filterByQuantity = function (orders, quantity) {
   return orders.filter((order) => order.quantity > quantity);
 };
-
 
 // console.log(filterBySalary([{ name: "Alice", salary: 5000 }, { name: "Bob", salary: 7000 }], 5000));
 // console.log(filterByQuantity([{orderId: 1, quantity: 10}, {orderId: 2, quantity: 5}] , 5));
