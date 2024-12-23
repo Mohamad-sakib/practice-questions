@@ -90,6 +90,25 @@ console.log(
     50
   )
 );
+
+const convertNameToUpperCase = (product) => {
+  return { name: product.name.toUpperCase() };
+};
+
+const isLengthMoreThen = (minLength) => {
+  return (product) => {
+    return product.name.length > minLength;
+  };
+};
+
+// Convert product names to uppercase, then filter for products with names longer than a certain number [{name: "apple"}, {name: "banana"}] => [{name: "APPLE"}]
+const filterLongProductNames = function (products, minLength) {
+  const productsInUpperCase = products.map(convertNameToUpperCase);
+  return productsInUpperCase.filter(isLengthMoreThen(minLength));
+};
+
+// console.log(filterLongProductNames([{ name: "apple" }, { name: "banana" }], 5));
+
 // console.log(filterByPostCount([{ username: "Alice", posts: 10 }, { username: "Bob", posts: 5 }], 10))
 // console.log(filterByLikes( [{id: 1, likes: 100}, {id: 2, likes: 50}], 100));
 // console.log(filterBySubjectGrade([{name: "Alice", grades: {math: 90, science: 80}}, {name: "Bob", grades: {math: 70, science: 85}}], "math", 80));
