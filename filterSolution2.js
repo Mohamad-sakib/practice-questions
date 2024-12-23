@@ -178,14 +178,43 @@ const filterByCategoryAndPrice = function (products, category, maxPrice) {
   return categoryProducts.filter((product) => product.price < maxPrice);
 };
 
+const validateDateComeBeforeAnother = (date1, date2) => {
+  const [year1, month1, day1] = date1.split("-");
+  const [year2, month2, day2] = date2.split("-");
+
+  if (+year1 < +year2) {
+    return true;
+  }
+
+  if (+year1 === +year2 && +month1 < +month2) {
+    return true;
+  }
+
+  if (+year1 === +year2 && +month1 === +month2 && +day1 < +day2) {
+    return true;
+  }
+
+  return false;
+};
+
+// Filter users based on their activity level and registration date [{profile: {username: "Alice", status: "active"}, registration: {date: "2020-05-01"}}] => [{profile: {username: "Alice", status: "active"}, registration: {date: "2020-05-01"}}]
+const filterActiveUsersByDate = function (users, status, dateThreshold) {
+  const activeUsers = users.filter((user) => user.profile.status === status);
+  return activeUsers.filter((user) => {
+    return validateDateComeBeforeAnother(user.registration.date, dateThreshold);
+  });
+};
+
 console.log(
-  filterByCategoryAndPrice(
+  filterActiveUsersByDate(
     [
-      { category: { type: "electronics" }, name: "Laptop", price: 800 },
-      { category: { type: "furniture" }, name: "Chair", price: 150 },
+      {
+        profile: { username: "Alice", status: "active" },
+        registration: { date: "2020-05-01" },
+      },
     ],
-    "electronics",
-    1000
+    "active",
+    "2021-05-01"
   )
 );
 
