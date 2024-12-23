@@ -128,16 +128,75 @@ const filterHighPriceWithVAT = function (products, vatRate, threshold) {
   return productWithTaxIncluded.filter((product) => product.price > threshold);
 };
 
+// Calculate the length of each name, then filter for names longer than a given number [{name: "Alice"}, {name: "Bob"}] => [{name: "Alice"}]
+const filterLongNames = function (people, minLength) {
+  return people.filter((person) => person.name.length > minLength);
+};
+
+// Normalize scores to a standard range, then filter for students who passed [{name: "John", score: 50}, {name: "Jane", score: 80}] => [{name: "Jane", score: 80}]
+const filterNormalizedScores = function (students, minScore) {
+  return students.filter((student) => student.score > minScore);
+};
+
+// Convert book publication dates, then filter for books published after a given year [{title: "Book1", year: 2020}, {title: "Book2", year: 2022}] => [{title: "Book2", year: 2022}]
+const filterRecentBooks = function (books, yearThreshold) {
+  return books.filter((book) => book.year > yearThreshold);
+};
+
+// Count the number of posts for each user, then filter for users with more than a specific number of posts [{username: "Alice", posts: 100}, {username: "Bob", posts: 50}] => [{username: "Alice", posts: 100}]
+const filterActivePosters = function (users, postThreshold) {
+  return users.filter((user) => user.posts > postThreshold);
+};
+
+const generateGradeFor = (number) => {
+  if (number < 50) {
+    return "F";
+  }
+
+  if (number > 50 && number < 96) {
+    return "A";
+  }
+
+  if (number > 95) {
+    return "O";
+  }
+};
+
+const convertToGrade = (student) => {
+  return { name: student.name, grade: generateGradeFor(student.grade) };
+};
+
+// Convert students' grades to letter grades, then filter for students who received a specific grade [{name: "Alice", grade: 90}, {name: "Bob", grade: 85}] => [{name: "Alice", grade: 90}]
+const filterSpecificGrade = function (students, grade) {
+  const studenRecordInGradeSystem = students.map(convertToGrade);
+  const studentOfSpecificGrade = studenRecordInGradeSystem.filter((student) => {
+    return student.grade === grade;
+  });
+  // const filterdStudentInNumberGradeSystem = studentOfSpecificGrade.
+
+  return studentOfSpecificGrade;
+};
+
 console.log(
-  filterHighPriceWithVAT(
+  filterSpecificGrade(
     [
-      { name: "item1", price: 100 },
-      { name: "item2", price: 50 },
+      { name: "Alice", grade: 90 },
+      { name: "Bob", grade: 85 },
     ],
-    10,
-    100
+    "A"
   )
 );
+
+// console.log(
+//   filterHighPriceWithVAT(
+//     [
+//       { name: "item1", price: 100 },
+//       { name: "item2", price: 50 },
+//     ],
+//     10,
+//     100
+//   )
+// );
 
 // console.log(filterLongProductNames([{ name: "apple" }, { name: "banana" }], 5));
 
