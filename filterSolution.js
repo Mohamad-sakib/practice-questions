@@ -364,7 +364,46 @@ const filterByMathGrade = function (students, grade) {
     return student.grades.math > grade;
   })
 };
-console.log(filterByMathGrade([{name: "John", grades: {math: 80, science: 90}}, {name: "Jane", grades: {math: 70, science: 85}}], 70));
+
+const validateDateComeBeforeAnother = (date1, date2) => {
+  return !(+date1.year > +date2.year || +date1.month > +date2.month || +date1.date > +date2.date);
+};
+
+const doesDateComeBefore = function (date1, date2) {
+  const date1Obj = arrayToObject(date1.split("-"), "year", "month", "date");
+  const date2Obj = arrayToObject(date2.split("-"), "year", "month", "date");
+
+  return validateDateComeBeforeAnother(date1Obj, date2Obj);
+};
+
+const isEventHappendBefore = function (date) {
+  return function (event) {
+    return doesDateComeBefore(event.date, date);
+  }
+};
+
+// filter events that occur before a certain date [{name: "Event1", date: "2024-12-01"}, {name: "Event2", date: "2024-11-15"}] => [{name: "Event2", date: "2024-11-15"}]
+const filterByDate = function (events, date) {
+  const isEventHappendBeforeGivenDate = isEventHappendBefore(date);
+
+  return events.filter(isEventHappendBeforeGivenDate);
+};
+
+// filter employees who earn more than a certain salary [{name: "Alice", salary: 5000}, {name: "Bob", salary: 7000}] => [{name: "Bob", salary: 7000}]
+const filterBySalary = function (employees, salary) { 
+  return employees.filter((employee) => employee.salary > salary);
+};
+
+// filter orders with a quantity greater than a given number [{orderId: 1, quantity: 10}, {orderId: 2, quantity: 5}] => [{orderId: 1, quantity: 10}]
+const filterByQuantity = function (orders, quantity) { 
+  return orders.filter((order) => order.quantity > quantity);
+};
+
+
+// console.log(filterBySalary([{ name: "Alice", salary: 5000 }, { name: "Bob", salary: 7000 }], 5000));
+// console.log(filterByQuantity([{orderId: 1, quantity: 10}, {orderId: 2, quantity: 5}] , 5));
+// console.log(filterByDate([{ name: "Event1", date: "2024-12-01" }, { name: "Event2", date: "2024-11-15" }], "2024-11-15"));
+// console.log(filterByMathGrade([{name: "John", grades: {math: 80, science: 90}}, {name: "Jane", grades: {math: 70, science: 85}}], 70));
 // console.log(filterByPrice([{name: "item1", price: 20}, {name: "item2", price: 50}, {name: "item3", price: 10}], 30));
 // console.log(filterByAge([{ name: "Alice", age: 25 }, { name: "Bob", age: 30 }, { name: "Charlie", age: 22 }], 25));
 // console.log(filterActiveUsersByPostCount([{ username: "Alice", postCount: 5 }, { username: "Bob", postCount: 8 }, { username: "Charlie", postCount: 3 }]));
