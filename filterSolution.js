@@ -8,7 +8,9 @@ const isMoreThen = function (val1) {
   }
 };
 
-const checkStatusFor = function (activityStatus) { return activityStatus };
+const checkStatusFor = function (activityStatus) {
+  return activityStatus;
+};
 
 const arrayToObject = function (array, ...keys) {
   const object = {};
@@ -356,11 +358,15 @@ const filterByPrice = function (products, price) {
   });
 };
 
-
+// filter students who scored above a certain grade in Math [{name: "John", grades: {math: 80, science: 90}}, {name: "Jane", grades: {math: 70, science: 85}}] => [{name: "John", grades: {math: 80, science: 90}}]
+const filterByMathGrade = function (students, grade) {
+  return students.filter(function (student) {
+    return student.grades.math > grade;
+  })
+};
+console.log(filterByMathGrade([{name: "John", grades: {math: 80, science: 90}}, {name: "Jane", grades: {math: 70, science: 85}}], 70));
 // console.log(filterByPrice([{name: "item1", price: 20}, {name: "item2", price: 50}, {name: "item3", price: 10}], 30));
 // console.log(filterByAge([{ name: "Alice", age: 25 }, { name: "Bob", age: 30 }, { name: "Charlie", age: 22 }], 25));
-
-
 // console.log(filterActiveUsersByPostCount([{ username: "Alice", postCount: 5 }, { username: "Bob", postCount: 8 }, { username: "Charlie", postCount: 3 }]));
 // console.log(filterCitiesAboveMedianPopulation([{ name: "City A", population: 2000 }, { name: "City B", population: 5000 }, { name: "City C", population: 3000 }]))
 // display(filterTopRatedBooks([{ title: "Book 1", rating: 4 }, { title: "Book 2", rating: 5 }, { title: "Book 3", rating: 3 }]))
