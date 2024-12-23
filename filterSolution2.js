@@ -162,28 +162,30 @@ const generateGradeFor = (number) => {
   }
 };
 
-const convertToGrade = (student) => {
-  return { name: student.name, grade: generateGradeFor(student.grade) };
-};
-
 // Convert students' grades to letter grades, then filter for students who received a specific grade [{name: "Alice", grade: 90}, {name: "Bob", grade: 85}] => [{name: "Alice", grade: 90}]
 const filterSpecificGrade = function (students, grade) {
-  const studenRecordInGradeSystem = students.map(convertToGrade);
-  const studentOfSpecificGrade = studenRecordInGradeSystem.filter((student) => {
-    return student.grade === grade;
+  return students.filter((student) => {
+    return generateGradeFor(student.grade) === grade;
   });
-  // const filterdStudentInNumberGradeSystem = studentOfSpecificGrade.
+};
 
-  return studentOfSpecificGrade;
+// Filter products based on category and price threshold [{category: {type: "electronics"}, name: "Laptop", price: 800}, {category: {type: "furniture"}, name: "Chair", price: 150}] => [{category: {type: "electronics"}, name: "Laptop", price: 800}]
+const filterByCategoryAndPrice = function (products, category, maxPrice) {
+  const categoryProducts = products.filter((product) => {
+    return product.category.type === category;
+  });
+
+  return categoryProducts.filter((product) => product.price < maxPrice);
 };
 
 console.log(
-  filterSpecificGrade(
+  filterByCategoryAndPrice(
     [
-      { name: "Alice", grade: 90 },
-      { name: "Bob", grade: 85 },
+      { category: { type: "electronics" }, name: "Laptop", price: 800 },
+      { category: { type: "furniture" }, name: "Chair", price: 150 },
     ],
-    "A"
+    "electronics",
+    1000
   )
 );
 
