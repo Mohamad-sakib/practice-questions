@@ -223,21 +223,42 @@ const filterOrdersByBalanceAndTotal = function (
   return ordersWithTotalMoreThenThreshold;
 };
 
-console.log(
-  filterOrdersByBalanceAndTotal(
-    [{ customer: { name: "Alice", balance: 1000 }, order: { total: 200 } }],
-    800
-  )
-);
+// console.log(
+//   filterOrdersByBalanceAndTotal(
+//     [{ customer: { name: "Alice", balance: 1000 }, order: { total: 200 } }],
+//     800,
+//     100
+//   )
+// );
+
+// Filter articles based on author name and publish date [{author: {name: "Alice"}, content: "Article 1", publishDate: "2021-01-01"}] => [{author: {name: "Alice"}, content: "Article 1", publishDate: "2021-01-01"}]
+const filterArticlesByAuthorAndDate = function (
+  articles,
+  authorName,
+  dateThreshold
+) {
+  const articlesOfAuthor = articles.filter((article) => {
+    return article.author.name === authorName;
+  });
+
+  const articleUnderDateThreshold = articlesOfAuthor.filter((article) => {
+    return validateDateComeBeforeAnother(article.publishDate, dateThreshold);
+  });
+
+  return articleUnderDateThreshold;
+};
 
 // console.log(
-//   filterHighPriceWithVAT(
+//   filterArticlesByAuthorAndDate(
 //     [
-//       { name: "item1", price: 100 },
-//       { name: "item2", price: 50 },
+//       {
+//         author: { name: "Alice" },
+//         content: "Article 1",
+//         publishDate: "2019-01-01",
+//       },
 //     ],
-//     10,
-//     100
+//     "Alice",
+//     "2020-01-01"
 //   )
 // );
 
