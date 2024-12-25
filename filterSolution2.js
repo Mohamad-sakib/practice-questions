@@ -309,16 +309,24 @@ const filterCandidatesByExperienceAndSkills = function (
   return candidateWithRequiredSkills;
 };
 
+// Filter events based on location and date [{location: {city: "New York"}, date: {eventDate: "2022-07-01"}}] => [{location: {city: "New York"}, date: {eventDate: "2022-07-01"}}]
+const filterEventsByLocationAndDate = function (events, city, dateThreshold) {
+  const eventsInCity = events.filter((event) => {
+    return event.location.city === city;
+  });
+
+  const eventsInCertainDate = eventsInCity.filter((event) => {
+    return event.date.eventDate === dateThreshold;
+  });
+
+  return eventsInCertainDate;
+};
+
 console.log(
-  filterCandidatesByExperienceAndSkills(
-    [
-      {
-        skills: { languages: ["JavaScript", "Python"] },
-        experience: { years: 5 },
-      },
-    ],
-    4,
-    ["NodeJs", "JavaScript"]
+  filterEventsByLocationAndDate(
+    [{ location: { city: "New York" }, date: { eventDate: "2022-07-01" } }],
+    "New York",
+    "2022-07-01"
   )
 );
 
