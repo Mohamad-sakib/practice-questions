@@ -286,16 +286,39 @@ const filterProjectsByTeamSizeAndStatus = function (
   return completedProjectOfTeamUnderThreshold;
 };
 
+const hasRequiredSkills = (requiredSkills) => (language) => {
+  return requiredSkills.includes(language);
+};
+
+// Filter job candidates based on years of experience and their skills [{skills: {languages: ["JavaScript", "Python"]}, experience: {years: 5}}] => [{skills: {languages: ["JavaScript", "Python"]}, experience: {years: 5}}]
+const filterCandidatesByExperienceAndSkills = function (
+  candidates,
+  experienceThreshold,
+  requiredSkills
+) {
+  const candidatesWithRequiredExperience = candidates.filter((candidate) => {
+    return candidate.experience.years > experienceThreshold;
+  });
+
+  const candidateWithRequiredSkills = candidatesWithRequiredExperience.filter(
+    (candidate) => {
+      return candidate.skills.languages.some(hasRequiredSkills(requiredSkills));
+    }
+  );
+
+  return candidateWithRequiredSkills;
+};
+
 console.log(
-  filterProjectsByTeamSizeAndStatus(
+  filterCandidatesByExperienceAndSkills(
     [
       {
-        team: { members: ["Alice", "Bob"], size: 2 },
-        project: { completed: false },
+        skills: { languages: ["JavaScript", "Python"] },
+        experience: { years: 5 },
       },
     ],
-    3,
-    false
+    4,
+    ["NodeJs", "JavaScript"]
   )
 );
 
