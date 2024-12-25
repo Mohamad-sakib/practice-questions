@@ -205,16 +205,28 @@ const filterActiveUsersByDate = function (users, status, dateThreshold) {
   });
 };
 
+// Filter orders where the customer's balance is above a certain threshold and the order total is under a certain amount [{customer: {name: "Alice", balance: 1000}, order: {total: 200}}] => [{customer: {name: "Alice", balance: 1000}, order: {total: 200}}]
+const filterOrdersByBalanceAndTotal = function (
+  orders,
+  balanceThreshold,
+  totalThreshold
+) {
+  const customerWithBalalceMoreThenThreshold = orders.filter((order) => {
+    return order.customer.balance > balanceThreshold;
+  });
+
+  const ordersWithTotalMoreThenThreshold =
+    customerWithBalalceMoreThenThreshold.filter((customer) => {
+      return customer.order.total > totalThreshold;
+    });
+
+  return ordersWithTotalMoreThenThreshold;
+};
+
 console.log(
-  filterActiveUsersByDate(
-    [
-      {
-        profile: { username: "Alice", status: "active" },
-        registration: { date: "2020-05-01" },
-      },
-    ],
-    "active",
-    "2021-05-01"
+  filterOrdersByBalanceAndTotal(
+    [{ customer: { name: "Alice", balance: 1000 }, order: { total: 200 } }],
+    800
   )
 );
 
