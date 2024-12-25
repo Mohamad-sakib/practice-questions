@@ -248,19 +248,32 @@ const filterArticlesByAuthorAndDate = function (
   return articleUnderDateThreshold;
 };
 
-// console.log(
-//   filterArticlesByAuthorAndDate(
-//     [
-//       {
-//         author: { name: "Alice" },
-//         content: "Article 1",
-//         publishDate: "2019-01-01",
-//       },
-//     ],
-//     "Alice",
-//     "2020-01-01"
-//   )
-// );
+// Filter courses by instructor name and course rating [{instructor: {name: "John"}, course: {rating: 4.5}}] => [{instructor: {name: "John"}, course: {rating: 4.5}}]
+const filterCoursesByInstructorAndRating = function (
+  courses,
+  instructorName,
+  ratingThreshold
+) {
+  console.log(courses, instructorName, ratingThreshold);
+  const coursesOfInstructor = courses.filter((course) => {
+    return course.instructor.name === instructorName;
+  });
+
+  console.log(coursesOfInstructor);
+  const courseUnderRatingThresold = coursesOfInstructor.filter((course) => {
+    return course.course.rating > ratingThreshold;
+  });
+
+  return courseUnderRatingThresold;
+};
+
+console.log(
+  filterCoursesByInstructorAndRating(
+    [{ instructor: { name: "John" }, course: { rating: 4.5 } }],
+    "John",
+    4
+  )
+);
 
 // console.log(filterLongProductNames([{ name: "apple" }, { name: "banana" }], 5));
 
