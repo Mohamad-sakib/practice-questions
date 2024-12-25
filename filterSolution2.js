@@ -267,11 +267,35 @@ const filterCoursesByInstructorAndRating = function (
   return courseUnderRatingThresold;
 };
 
+// Filter projects by team size and completion status [{team: {members: ["Alice", "Bob"], size: 2}, project: {completed: false}}] => [{team: {members: ["Alice", "Bob"], size: 2}, project: {completed: false}}]
+const filterProjectsByTeamSizeAndStatus = function (
+  projects,
+  teamSizeThreshold,
+  status
+) {
+  const teamsUnderSizeThreshold = projects.filter((project) => {
+    return project.team.size < teamSizeThreshold;
+  });
+
+  const completedProjectOfTeamUnderThreshold = teamsUnderSizeThreshold.filter(
+    (team) => {
+      return team.project.completed === status;
+    }
+  );
+
+  return completedProjectOfTeamUnderThreshold;
+};
+
 console.log(
-  filterCoursesByInstructorAndRating(
-    [{ instructor: { name: "John" }, course: { rating: 4.5 } }],
-    "John",
-    4
+  filterProjectsByTeamSizeAndStatus(
+    [
+      {
+        team: { members: ["Alice", "Bob"], size: 2 },
+        project: { completed: false },
+      },
+    ],
+    3,
+    false
   )
 );
 
