@@ -273,6 +273,50 @@ const groupByLength = function (strings) {
   return strings.reduce(createGroupOfLength, {});
 };
 
+// countOccurrences(["apple", "banana", "cherry", "banana"]) => { apple: 1, banana: 2, cherry: 1 }
+const countOccurrences = function (strings) {
+  return strings.reduce((occurencess, string) => {
+    console.log(occurencess);
+    if (string in occurencess) {
+      return { ...occurencess, [string]: occurencess[string] + 1 };
+    }
+
+    return { ...occurencess, [string]: 1 };
+  }, {});
+};
+
+// mergeObjects([{ a: 1, b: 2 }, { b: 3, c: 4 }, { a: 5 }]) => { a: 6, b: 5, c: 4 }
+const mergeObjects = function (objects) {
+  return objects.reduce((mergedObject, object) => {
+    return Object.assign(mergedObject, object);
+  }, {});
+};
+
+// zip(["a", "b", "c"], [1, 2, 3]) => { "a": 1, "b": 2, "c": 3 }
+const zip = function (keys, values) {
+  const combinedData = keys.map((key, index) => {
+    return [key, values.at(index)];
+  });
+
+  return combinedData.reduce((zippedData, pair) => {
+    return { ...zippedData, [pair[0]]: pair[1] };
+  }, {});
+};
+
+// makeObject(["city", "country"], ["Paris", "France"]) => { "city": "Paris", "country": "France" }
+const makeObject = function (keys, values) {
+  return keys.reduce((object, key, index) => {
+    return { ...object, [key]: values[index] };
+  }, {});
+};
+
+// invertObject({ "a": 1, "b": 2, "c": 3 }) => { 1: "a", 2: "b", 3: "c" }
+const invertObject = function (obj) {
+  return;
+};
+
+display(mergeObjects(["city", "country"], ["Paris", "France"]));
+
 // const createGroupOfLength = (objectOfLength, string) => {
 //   const stringLength = string.length + "";
 
@@ -284,5 +328,5 @@ const groupByLength = function (strings) {
 //   return objectOfLength;
 // }
 
-display(groupByLength(["apple", "banana", "cherry", "date"]));
-display(joinWithComma(["apple", "banana", "cherry"]));
+// display(groupByLength(["apple", "banana", "cherry", "date"]));
+// display(joinWithComma(["apple", "banana", "cherry"]));
