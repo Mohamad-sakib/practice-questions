@@ -365,14 +365,21 @@ const makePairs = (pairs, char) => {
 const flattenToObject = function (pairs) {
   const flattedArray = flattenArray(pairs);
   const arrayOfPairs = flattedArray.reduce(makePairs, [[]]);
-  console.log(arrayOfPairs);
 
   return arrayOfPairs.reduce((object, pair) => {
     return { ...object, [pair[0]]: pair[1] };
   }, {});
 };
 
+// longestString(["apple", "banana", "cherry", "dates"]) => "banana"
+const longestString = function (strings) {
+  return strings.reduce((longestText, text) =>
+    longestText.length >= text.length ? longestText : text
+  );
+};
+
 display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
+display(longestString(["apple", "banana", "cherry", "dates"]));
 
 // const createGroupOfLength = (objectOfLength, string) => {
 //   const stringLength = string.length + "";
