@@ -331,6 +331,17 @@ const mergeArrays = function (arr1, arr2) {
   return Object.assign(obj1, obj2);
 };
 
+// groupByProperty([{name: "John", age: 25}, {name: "Jane", age: 30}]) => { 25: [{name: "John", age: 25}], 30: [{name: "Jane", age: 30}] }
+const groupByProperty = function (objects) {
+  return objects.reduce((groupedObj, object) => {
+    if (object.age in groupedObj) {
+      return { ...object, [object.age]: [...groupedObj[object.age], object] };
+    }
+
+    return { ...groupedObj, [object.age]: [object] };
+  }, {});
+};
+
 display(invertObject({ a: 1, b: 2, c: 3 }));
 
 // const createGroupOfLength = (objectOfLength, string) => {
