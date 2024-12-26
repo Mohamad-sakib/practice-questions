@@ -355,7 +355,24 @@ const ascendingGroups = function (numbers) {
   return numbers.reduce(groupInAscendingOrder, [[]]);
 };
 
-display(ascendingGroups([1, 2, 3, 4, 3, 4, 5, 10, 6, 7, 8, 9]));
+const makePairs = (pairs, char) => {
+  return pairs.at(-1).length === 2
+    ? [...pairs, [char]]
+    : [...pairs].with(-1, pairs.at(-1).concat(char));
+};
+
+// flattenToObject([['a', 1], ['b', 2], ['c', 3]]) => { a: 1, b: 2, c: 3 }
+const flattenToObject = function (pairs) {
+  const flattedArray = flattenArray(pairs);
+  const arrayOfPairs = flattedArray.reduce(makePairs, [[]]);
+  console.log(arrayOfPairs);
+
+  return arrayOfPairs.reduce((object, pair) => {
+    return { ...object, [pair[0]]: pair[1] };
+  }, {});
+};
+
+display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 
 // const createGroupOfLength = (objectOfLength, string) => {
 //   const stringLength = string.length + "";
