@@ -312,10 +312,14 @@ const makeObject = function (keys, values) {
 
 // invertObject({ "a": 1, "b": 2, "c": 3 }) => { 1: "a", 2: "b", 3: "c" }
 const invertObject = function (obj) {
-  return;
+  const arrayObj = Object.entries(obj);
+
+  return arrayObj.reduce((inveredObj, keyValuePair) => {
+    return { ...inveredObj, [keyValuePair[1]]: keyValuePair[0] };
+  }, {});
 };
 
-display(mergeObjects(["city", "country"], ["Paris", "France"]));
+display(invertObject({ a: 1, b: 2, c: 3 }));
 
 // const createGroupOfLength = (objectOfLength, string) => {
 //   const stringLength = string.length + "";
