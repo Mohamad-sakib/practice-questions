@@ -319,6 +319,18 @@ const invertObject = function (obj) {
   }, {});
 };
 
+// mergeArrays([["a", 1], ["b", 2]], [["c", 3], ["d", 4]]) => { "a": 1, "b": 2, "c": 3, "d": 4 }
+const pushKeyValueToObj = (obj, [key, value]) => {
+  return { ...obj, [key]: value };
+};
+
+const mergeArrays = function (arr1, arr2) {
+  const obj1 = arr1.reduce(pushKeyValueToObj, {});
+  const obj2 = arr2.reduce(pushKeyValueToObj, {});
+
+  return Object.assign(obj1, obj2);
+};
+
 display(invertObject({ a: 1, b: 2, c: 3 }));
 
 // const createGroupOfLength = (objectOfLength, string) => {
