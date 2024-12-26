@@ -378,6 +378,25 @@ const longestString = function (strings) {
   );
 };
 
+const isMergeNeeded = (mergedInterval, interval) => {
+  return (
+    mergedInterval.at(-1) > interval[0] && mergedInterval.at(-1) < interval[1]
+  );
+};
+
+const mergingIntervals = (mergedInter, interval) => {
+  if (isMergeNeeded(mergedInter, interval)) {
+    return mergedInter.with(-1, mergedInter.at(-1).with(-1, interval[1]));
+  }
+
+  return [...mergedInter, interval];
+};
+
+// mergeIntervals([[1,3], [2,4], [5,7]]) => [[1, 4], [5, 7]]
+const mergeIntervals = function (intervals) {
+  return intervals.reduce(mergingIntervals, []);
+};
+
 display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 display(longestString(["apple", "banana", "cherry", "dates"]));
 
