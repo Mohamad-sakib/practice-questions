@@ -28,7 +28,7 @@ const isNegative = function (number) {
 const power = function (exponent) {
   return function (base) {
     return Math.pow(base, exponent);
-  }
+  };
 };
 
 const isOdd = function (number) {
@@ -37,18 +37,28 @@ const isOdd = function (number) {
 
 const isEven = function (number) {
   return number % 2 === 0;
-}
+};
 
 const count = function (accumolator) {
   return accumolator + 1;
 };
 
-const whichOneHasLongerLength = function (longestString, longestStringCandidate) {
-  return longestStringCandidate.length > longestString.length ? longestStringCandidate : longestString;
+const whichOneHasLongerLength = function (
+  longestString,
+  longestStringCandidate
+) {
+  return longestStringCandidate.length > longestString.length
+    ? longestStringCandidate
+    : longestString;
 };
 
-const whichOneHasSmallerLength = function (smallestString, smallestStringCandidate) {
-  return smallestStringCandidate.length < smallestString.length ? smallestStringCandidate : smallestString;
+const whichOneHasSmallerLength = function (
+  smallestString,
+  smallestStringCandidate
+) {
+  return smallestStringCandidate.length < smallestString.length
+    ? smallestStringCandidate
+    : smallestString;
 };
 
 const concatenate = function (seprator) {
@@ -62,7 +72,7 @@ const concatenate = function (seprator) {
 // sumOf([1, 2, 3, 4]) => 10
 const sumOf = function (numbers) {
   return numbers.reduce(sumOfTwoNumber, 0);
-}
+};
 
 // productOf([1, 2, 3, 4]) => 24
 const productOf = function (numbers) {
@@ -71,13 +81,12 @@ const productOf = function (numbers) {
   }
 
   return numbers.reduce(productOfTwoNumber, 1);
-}
+};
 
 // averageOf([1, 2, 3, 4, 5]) => 3
 const averageOf = function (numbers) {
   return sumOf(numbers) / numbers.length;
 };
-
 
 // minOf([3, 1, 4, 1, 5, 9, 2]) => 1
 const minOf = function (numbers) {
@@ -86,7 +95,7 @@ const minOf = function (numbers) {
 
 // maxOf([3, 1, 4, 1, 5, 9, 2]) => 9
 const maxOf = function (numbers) {
-  return numbers.reduce(maxOfTwoNumber, -Infinity)
+  return numbers.reduce(maxOfTwoNumber, -Infinity);
 };
 
 // sumPositiveNumbers([1, -2, 3, -4]) => 4
@@ -131,7 +140,7 @@ const longestWord = function (words) {
 // shortestWord(["apple", "banana", "cherry", "kiwi"]) => "kiwi"
 const shortestWord = function (words) {
   return words.reduce(whichOneHasSmallerLength);
-}
+};
 
 const concatWithComma = concatenate(",");
 
@@ -144,7 +153,7 @@ const concatWithSpace = concatenate(" ");
 
 // reverseWords(["hello", "world"]) => "world hello"
 const reverseWords = function (words) {
-  return words.reverse(words).reduce(concatWithSpace);;
+  return words.reverse(words).reduce(concatWithSpace);
 };
 
 // joinWordsWithSpace(["apple", "banana", "cherry"]) => "apple banana cherry"
@@ -193,7 +202,7 @@ const makeCamelCase = function (words) {
 
 const reverseWord = function (word) {
   return word.split("").reverse().join("");
-}
+};
 
 const reverseWordsAndJoin = function (reversedString, wordToReverse) {
   return reversedString.concat(reverseWord(wordToReverse));
@@ -201,9 +210,79 @@ const reverseWordsAndJoin = function (reversedString, wordToReverse) {
 
 // reverseString(["apple", "banana", "cherry"]) => "elppaananabyrrehc"
 const reverseString = function (words) {
-  return words.reduce(reverseWordsAndJoin, "");;
+  return words.reduce(reverseWordsAndJoin, "");
 };
 
+// duplicateNumbers([1, 2, 3]) => [1, 1, 2, 2, 3, 3]
+const duplicateNumbers = function (numbers) {
+  return numbers.reduce(
+    (dublicate, number) => [...dublicate, number, number],
+    []
+  );
+};
 
+const concatenateArrays = function (arrays) {
+  return arrays.reduce((concatedArray, element) => {
+    return concatedArray.concat(element);
+  });
+};
+
+const removeDublication = (NoDupicate, number) => {
+  if (!NoDupicate.includes(number)) {
+    NoDupicate.push(number);
+  }
+
+  return NoDupicate;
+};
+// uniqueNumbers([1, 2, 2, 3, 4, 4, 5]) => [1, 2, 3, 4, 5]
+const uniqueNumbers = function (numbers) {
+  return numbers.reduce(removeDublication, []);
+};
+
+// flattenArray([[1, 2], [3, 4], [5, 6]]) => [1, 2, 3, 4, 5, 6]
+const flattenArray = function (arrays) {
+  return arrays.reduce((array, element) => {
+    return Array.isArray(element)
+      ? array.concat(flattenArray(element))
+      : array.concat(element);
+  }, []);
+};
+
+const flattenArray2 = (numbers) => {
+  const numbersInString = numbers.join().split(",");
+  return numbersInString.map((number) => {
+    return +number;
+  });
+};
+
+// groupByLength(["apple", "banana", "cherry", "date"]) => { 5: ["apple", "cherry"], 6: ["banana"], 4: ["date"] }
+const createGroupOfLength = (objectOfLength, string) => {
+  const stringLength = string.length + "";
+
+  if (!(stringLength in objectOfLength)) {
+    return { ...objectOfLength, [stringLength]: [string] };
+  }
+
+  console.log(stringLength, objectOfLength);
+
+  objectOfLength[stringLength].push(string);
+  return objectOfLength;
+}; //alternative
+
+const groupByLength = function (strings) {
+  return strings.reduce(createGroupOfLength, {});
+};
+
+// const createGroupOfLength = (objectOfLength, string) => {
+//   const stringLength = string.length + "";
+
+//   if (!stringLength in objectOfLength) {
+//      objectOfLength[stringLength] = [];
+//   }
+
+//   objectOfLength[stringLength].push(string);
+//   return objectOfLength;
+// }
+
+display(groupByLength(["apple", "banana", "cherry", "date"]));
 display(joinWithComma(["apple", "banana", "cherry"]));
-
