@@ -342,7 +342,20 @@ const groupByProperty = function (objects) {
   }, {});
 };
 
-display(invertObject({ a: 1, b: 2, c: 3 }));
+const groupInAscendingOrder = (orderedGroups, number) => {
+  if (orderedGroups.at(-1).at(-1) > number) {
+    return [...orderedGroups, [number]];
+  }
+
+  return [...orderedGroups].with(-1, [...orderedGroups.at(-1), number]);
+};
+
+// ascendingGroups([1,2,3,4,3,4,5,10,6,7,8,9]) => [[1,2,3,4],[3,4,5],[10],[6,7,8,9]]
+const ascendingGroups = function (numbers) {
+  return numbers.reduce(groupInAscendingOrder, [[]]);
+};
+
+display(ascendingGroups([1, 2, 3, 4, 3, 4, 5, 10, 6, 7, 8, 9]));
 
 // const createGroupOfLength = (objectOfLength, string) => {
 //   const stringLength = string.length + "";
