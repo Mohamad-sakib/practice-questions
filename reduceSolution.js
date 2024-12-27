@@ -456,7 +456,20 @@ const equalChunksOfAtLeast = function (numbers) {
   return numbers.reduce(createChunks, []);
 };
 
-display(equalChunksOfAtLeast([1, 1, 1, 2, 2, 5, 1, 1]));
+const listDataByType = (typeObject, element) => {
+  if (isNaN(+element)) {
+    return { ...typeObject, string: [...typeObject.string, element] };
+  }
+
+  return { ...typeObject, number: [...typeObject.number, element] };
+};
+
+// groupByType([1, 'a', 2, 'b', 3, 'c', 4]) => { number: [1, 2, 3, 4], string: ['a', 'b', 'c'] }
+const groupByType = function (array) {
+  return array.reduce(listDataByType, { number: [], string: [] });
+};
+
+display(groupByType([1, "a", 2, "b", 3, "c", 4]));
 
 // display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 // display(longestString(["apple", "banana", "cherry", "dates"]));
