@@ -435,8 +435,31 @@ const cumulativeSum = function (numbers) {
   return cumulativeSumNumbers;
 };
 
-display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
-display(longestString(["apple", "banana", "cherry", "dates"]));
+const createChunks = (chunks, number) => {
+  if (chunks.length === 0) {
+    return [chunks.concat(number)];
+  }
+
+  if (chunks.at(-1).includes(number)) {
+    return chunks.with(-1, [...chunks.at(-1), number]);
+  }
+
+  if (chunks.at(-1).length === 1) {
+    return [...chunks].with(-1, [number]);
+  }
+
+  return [...chunks, [number]];
+};
+
+// equalChunksOfAtLeast([1, 1, 1, 2, 2, 5, 1, 1]) => [[1,1,1], [2,2], [1,1]]
+const equalChunksOfAtLeast = function (numbers) {
+  return numbers.reduce(createChunks, []);
+};
+
+display(equalChunksOfAtLeast([1, 1, 1, 2, 2, 5, 1, 1]));
+
+// display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
+// display(longestString(["apple", "banana", "cherry", "dates"]));
 
 // const createGroupOfLength = (objectOfLength, string) => {
 //   const stringLength = string.length + "";
@@ -451,3 +474,21 @@ display(longestString(["apple", "banana", "cherry", "dates"]));
 
 // display(groupByLength(["apple", "banana", "cherry", "date"]));
 // display(joinWithComma(["apple", "banana", "cherry"]));
+
+// const equalChunksOfAtLeast = function (numbers) {
+//   return numbers.reduce(
+//     (chunks, number) => {
+//       //   if (chunks.at(-1).includes(number)) {
+//       //     console.log(chunks, number);
+//       //     return [...chunks, chunks.with(-1, chunks.at(-1).concat(number))];
+//       //   }
+
+//       //   return chunks.at(-1).length === 0 ? [[number]] : [...chunks, [number]];
+//       // },
+//       // [[]]
+//       if () {
+
+//       }
+
+//     },[[]]);
+// };
