@@ -418,6 +418,11 @@ const deepFlatten = function (arr) {
   }, []);
 };
 
+// findMax([1, 2, 3, 4, 5]) => 5
+const findMax = function (numbers) {
+  return numbers.reduce((num1, num2) => Math.max(num1, num2), -Infinity);
+};
+
 display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 display(longestString(["apple", "banana", "cherry", "dates"]));
 
