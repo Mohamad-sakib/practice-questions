@@ -409,6 +409,15 @@ const sumAndCount = function (numbers) {
   return numbers.reduce(addPreviousValueAndCount, { sum: 0, count: 0 });
 };
 
+// deepFlatten([[1,2], [3,4, [5,6]], 7]) => [1,2,3,4,5,6,7]
+const deepFlatten = function (arr) {
+  return arr.reduce((flattenArray, element) => {
+    return Array.isArray(element)
+      ? flattenArray.concat(deepFlatten(element))
+      : flattenArray.concat(element);
+  }, []);
+};
+
 display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 display(longestString(["apple", "banana", "cherry", "dates"]));
 
