@@ -469,7 +469,29 @@ const groupByType = function (array) {
   return array.reduce(listDataByType, { number: [], string: [] });
 };
 
-display(groupByType([1, "a", 2, "b", 3, "c", 4]));
+const runningAvgSurfix = (lastElementAverage, number, countOfNumber) => {
+  return (number - lastElementAverage) / (countOfNumber + 1);
+};
+
+const findRunningAverage = (averagesInRunning, number) => {
+  if (averagesInRunning.length === 0) {
+    return averagesInRunning.concat(number);
+  }
+
+  const lastElementAvg = averagesInRunning.at(-1);
+  const countOfNumber = averagesInRunning.length;
+  const suffix = runningAvgSurfix(lastElementAvg, number, countOfNumber);
+  const currentElementAvg = lastElementAvg + suffix;
+
+  return [...averagesInRunning, currentElementAvg];
+};
+
+// runningAverages([1, 2, 3, 4]) => [1, 1.5, 2, 2.5]
+const runningAverages = function (numbers) {
+  return numbers.reduce(findRunningAverage, []);
+};
+
+display(runningAverages([1, 2, 3, 4]));
 
 // display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 // display(longestString(["apple", "banana", "cherry", "dates"]));
