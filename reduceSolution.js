@@ -423,6 +423,18 @@ const findMax = function (numbers) {
   return numbers.reduce((num1, num2) => Math.max(num1, num2), -Infinity);
 };
 
+const cumulativeAddition = (comultaiveNumbers, number) => {
+  return [...comultaiveNumbers, comultaiveNumbers.at(-1) + number];
+};
+
+// cumulativeSum([1,2,3,4]) => [1, 3, 6, 10]
+const cumulativeSum = function (numbers) {
+  const cumulativeSumNumbers = numbers.reduce(cumulativeAddition, [0]);
+  cumulativeSumNumbers.shift();
+
+  return cumulativeSumNumbers;
+};
+
 display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 display(longestString(["apple", "banana", "cherry", "dates"]));
 
