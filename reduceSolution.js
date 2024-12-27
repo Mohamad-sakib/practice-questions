@@ -397,6 +397,18 @@ const mergeIntervals = function (intervals) {
   return intervals.reduce(mergingIntervals, []);
 };
 
+const addPreviousValueAndCount = (sumCountObj, number) => {
+  return {
+    sum: sumCountObj.sum + number,
+    count: sumCountObj.count + 1,
+  };
+};
+
+// sumAndCount([1, 2, 3, 4]) => { sum: 10, count: 4 }
+const sumAndCount = function (numbers) {
+  return numbers.reduce(addPreviousValueAndCount, { sum: 0, count: 0 });
+};
+
 display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 display(longestString(["apple", "banana", "cherry", "dates"]));
 
