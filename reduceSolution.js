@@ -493,6 +493,197 @@ const runningAverages = function (numbers) {
 
 display(runningAverages([1, 2, 3, 4]));
 
+const splitArray = (splittedArray, size, value) => {
+  if (splittedArray.at(-1).length === size) {
+    return [...splittedArray, [value]];
+  }
+  return splittedArray.with(-1, [...splittedArray.at(-1), value]);
+};
+
+// splitIntoSubarrays([1,2,3,4,5,6,7], 3) => [[1,2,3], [4,5,6], [7]]
+const splitIntoSubarrays = function (arr, size) {
+  return arr.reduce(
+    (splitedArray, value) => {
+      return splitArray(splitedArray, size, value);
+    },
+    [[]]
+  );
+};
+
+console.log(splitIntoSubarrays([1, 2, 3, 4, 5, 6, 7], 3));
+
+// groupByFirstLetter(["apple", "banana", "cherry", "date"]) => { a: ["apple"], b: ["banana"], c: ["cherry"], d: ["date"] }
+const groupByFirstLetter = function (words) {
+  return words.reduce((groupedObj, word) => {
+    if (Object.entries(groupedObj).join().includes(word.at(0))) {
+      return { ...groupedObj, [word.at(0)]: [...groupedObj[word.at(0)], word] };
+    }
+
+    return { ...groupedObj, [word.at(0)]: [word] };
+  }, {});
+};
+
+// findFirstNonRepeated([1,2,3,4,2,1,5]) => 3
+// const findFirstNonRepeated = function (numbers) {
+//   return numbers.reduce((firstNonRepeated, number, index) => {
+//     return;
+//   });
+// };
+
+const hasDublicateIn = (value, values, index) => {
+  const shallowValues = values.concat([]);
+  shallowValues.splice(index, 1);
+
+  return shallowValues.includes(value);
+};
+
+//firstMethod
+const findFirstNonRepeated = function (numbers) {
+  const nonRepeatedNumbers = numbers.filter((number, index) => {
+    return !hasDublicateIn(number, numbers, index);
+  });
+
+  return nonRepeatedNumbers[0];
+};
+
+//secondMethod
+const findFirstNonRepeated2 = function (numbers) {
+  const nonRepeatedNumbers = numbers.find((number, index) => {
+    return !hasDublicateIn(number, numbers, index);
+  });
+
+  return nonRepeatedNumbers;
+};
+
+//thirdMethod
+const findFirstNonRepeated3 = function (numbers) {
+  return numbers.reduce((firstNonRepeatedNumber, number, index) => {
+    if (
+      !hasDublicateIn(number, numbers, index) &&
+      firstNonRepeatedNumber === null
+    ) {
+      return number;
+    }
+
+    return firstNonRepeatedNumber;
+  }, null);
+};
+
+const countCharInString = (targetChar, string) => {
+  return [...string].reduce((counter, char) => {
+    return char === targetChar ? counter + 1 : counter;
+  }, 0);
+};
+
+const collectTotalVowelsInWord = (word) => {
+  return ["a", "i", "o", "e", "u"].reduce((vowelsObj, char) => {
+    return { ...vowelsObj, [char]: countCharInString(char, word) };
+  }, {});
+};
+
+// countVowels(["apple", "banana", "grape"]) => { a: 6, e: 3, i: 0, o: 0, u: 0 }
+const countVowels = function (words) {
+  return words.reduce(
+    (vowelsCount, word) => {
+      const totalVowelsInWord = collectTotalVowelsInWord(word);
+      return {
+        a: vowelsCount.a + totalVowelsInWord.a,
+        i: vowelsCount.i + totalVowelsInWord.i,
+        o: vowelsCount.o + totalVowelsInWord.o,
+        u: vowelsCount.u + totalVowelsInWord.u,
+        e: vowelsCount.e + totalVowelsInWord.e,
+      };
+    },
+    {
+      a: 0,
+      i: 0,
+      o: 0,
+      e: 0,
+      u: 0,
+    }
+  );
+};
+
+// mergeConsecutiveDuplicates([1,1,1,2,3,3,4]) => [1,2,3,4]
+const mergeConsecutiveDuplicates = function (array) {
+  return array.reduce((noConsecutiveDuplicates, value) => {
+    if (noConsecutiveDuplicates.at(-1) !== value) {
+      return [...noConsecutiveDuplicates, value];
+    }
+
+    return noConsecutiveDuplicates;
+  }, []);
+};
+
+// longestConsecutiveSubsequence([1, 2, 0, 1, 3, 4, 5]) => [0, 1, 2, 3, 4, 5]
+const longestConsecutiveSubsequence = function (numbers) {
+  const sortedSubsequence = numbers.sort((num1, num2) => num1 - num2);
+  return mergeConsecutiveDuplicates(sortedSubsequence);
+};
+
+// topKFrequent([1,1,1,2,2,3], 2) => [1, 2]
+const topKFrequent = function (numbers, k) {};
+
+// nestedAverage([[[1, 2]], [3, 4], [5, [6, 7]]]) => 4
+const nestedAverage = function (nestedNumbers) {
+  const flattedNumbers = flattenArray(nestedNumbers);
+  return averageOf(flattedNumbers);
+};
+
+// cartesianProduct([1, 2], ['a', 'b']) => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
+const cartesianProduct = function (arr1, arr2) {
+  return arr1.reduce((product, value) => {
+    return [...product, ...arr2.map((element) => [value, element])];
+  }, []);
+};
+
+// groupByDate([{ date: '2024-01-01', value: 10 }, { date: '2024-01-01', value: 20 }, { date: '2024-01-02', value: 30 }]) => { '2024-01-01': [10, 20], '2024-01-02': [30] }
+const groupByDate = function (records) {};
+
+// findMinMax([1, 2, 3, 4, 5]) => { min: 1, max: 5 }
+const findMinMax = function (numbers) {
+  const min = minOf(numbers);
+  const max = maxOf(numbers);
+
+  return { min: min, max: max };
+};
+
+console.log(findMinMax([1, 2, 3, 4, 5]));
+
+// sumByCategory([{ category: 'A', value: 10 }, { category: 'B', value: 20 }, { category: 'A', value: 30 }]) => { A: 40, B: 20 }
+const sumByCategory = function (items) {
+  return items.reduce((sum, item) => {
+    if (Object.entries(sum).join().includes(item.category)) {
+      console.log("coming");
+      return { ...sum, [item.category]: sum[item.category] + item.value };
+    }
+
+    return { ...sum, [item.category]: item.value };
+  }, {});
+};
+
+console.log(
+  sumByCategory([
+    { category: "A", value: 10 },
+    { category: "B", value: 20 },
+    { category: "A", value: 30 },
+  ])
+);
+
+// flattenObject({a: {b: {c: 1}}, d: {e: 2}}) => { 'a.b.c': 1, 'd.e': 2 }
+// [ "d", { e: 2 }  ]
+// ["e",2]
+// const flattenObject = function (obj) {
+//   const entries = Object.entries(obj);
+//   return entries.reduce((flattenObj, [key, value]) => {
+//     if (typeof value === "object") {
+//       return { ...flattenObj, ...[flattenObject({ [key + "."]: value })] };
+//     }
+
+//     return { ...flattenObj, [key]: value };
+//   });
+// };
+
 // display(flattenToObject([[[["a", 1]]], ["b", 2], ["c", 3]]));
 // display(longestString(["apple", "banana", "cherry", "dates"]));
 
